@@ -1,0 +1,113 @@
+/* Gaya dasar EcoWin: sederhana, rapi, nyaman di HP */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #1f2933;
+  background: #f4f7f4;
+}
+
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 12px 16px;
+  background: #2e7d32;
+  color: #ffffff;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.header a {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.konten {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+h2 {
+  margin: 0 0 12px;
+  font-size: 1.25rem;
+}
+
+/* Formulir */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  background: #ffffff;
+  border: 1px solid #d5ddd5;
+  border-radius: 8px;
+}
+
+label {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+
+input,
+select,
+button {
+  width: 100%;
+  min-height: 44px;
+  padding: 8px 12px;
+  font: inherit;
+  border: 1px solid #b8c4b8;
+  border-radius: 6px;
+  background: #ffffff;
+}
+
+button {
+  color: #ffffff;
+  background: #2e7d32;
+  border-color: #2e7d32;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #256528;
+}
+
+/* Tabel rekap: bisa digeser mendatar di layar kecil */
+.tabel-bungkus {
+  overflow-x: auto;
+  background: #ffffff;
+  border: 1px solid #d5ddd5;
+  border-radius: 8px;
+}
+
+table {
+  width: 100%;
+  min-width: 560px;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 8px 12px;
+  text-align: left;
+  border-bottom: 1px solid #e3e9e3;
+  white-space: nowrap;
+}
+
+th {
+  background: #e8f1e8;
+}
