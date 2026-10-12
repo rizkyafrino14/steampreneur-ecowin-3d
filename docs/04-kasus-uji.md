@@ -17,7 +17,7 @@ Hasil yang diharapkan U01–U06 dan U14 sudah dihitung ulang tim dengan kalkulat
 | U08 | **Di atas batas** ditolak | Berat 100,01 kg | Ditolak, pesan kesalahan berat; tidak tersimpan | Pesan merah | Ya | U08.png |
 | U09 | **Input salah**: nol dan negatif | Berat 0, lalu berat −2 | Keduanya ditolak dengan pesan yang jelas | Pesan merah, 2 foto | Ya | U09-a.png, U09-b.png |
 | U10 | **Input salah**: kosong dan huruf | Berat dikosongkan, lalu berat "abc" | Keduanya ditolak dengan pesan yang jelas | Pesan merah, 2 foto | Ya | U10-a.png, U10-b.png |
-| U11 | **Input salah**: lebih dari 2 desimal | Berat 1,234 kg | Ditolak, pesan maksimal 2 angka desimal | Pesan "maksimal 2 angka..." | YaIya | U11.png |
+| U11 | **Input salah**: lebih dari 2 desimal | Berat 1,234 kg | Ditolak, pesan maksimal 2 angka desimal | Pesan "maksimal 2 angka..." | Ya | U11.png |
 | U12 | Pilihan wajib diisi | Nasabah belum dipilih; kemudian jenis atau kondisi belum dipilih | Ditolak dengan pesan pilihan wajib; tidak tersimpan | Pesan wajib dipilih, 2 foto | Ya | U12-a.png, U12-b.png |
 | U13 | Pemisah desimal koma dan titik | Berat "2,5" dan berat "2.5" (jenis sama) | Keduanya dianggap 2,5 kg dan bernilai sama | Nilai sama, 2 foto | Ya | U13-a.png, U13-b.png |
 | U14 | Saldo bertambah | Bu Sari (saldo Rp0) menyetor U01 lalu U02 | Saldo Rp11.250, lalu Rp20.000 | Saldo berhasil ditambahkan | Ya | U14.png |
