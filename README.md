@@ -45,10 +45,10 @@ Website tidak memerlukan login. Daftar nasabah dan tabel harga sudah tersedia se
 
 Minimal satu tangkapan layar untuk setiap langkah alur inti, termasuk hasil change request. Gambar disimpan di `docs/bukti/`.
 
-1. Langkah 1: ![Langkah 1](docs/bukti/langkah-1.png)
-2. Langkah 2: ![Langkah 2](docs/bukti/langkah-2.png)
-3. Langkah 3: ![Langkah 3](docs/bukti/langkah-3.png)
-4. Langkah 4: ![Langkah 4](docs/bukti/langkah-4.png)
+1. Langkah 1: ![Langkah 1](docs/bukti/U01.png)
+2. Langkah 2: ![Langkah 2](docs/bukti/U14.png)
+3. Langkah 3: ![Langkah 3](docs/bukti/U16-a.png)
+4. Langkah 4: ![Langkah 4](docs/bukti/C06.png)
 
 ## Cara Menjalankan Pengujian
 
