@@ -15,7 +15,7 @@ Peran: Rizky Mustafa Afrino (navigator utama), Muhammad Fadil Ismunawar (penguji
 |---|---|---|---|---|---|---|
 | 1 | Scaffolding: buat struktur proyek | Rizky | Proyek bisa dibuka di browser | 30 menit | 25 menit | selesai |
 | 2 | Data dan logika: `src/data.js` (nasabah dan tabel harga) serta `src/logika.js` (hitung nilai, validasi berat, validasi pilihan) beserta unit test di `tes/` | Rizky (kode), Fadil (hasil yang diharapkan dihitung manual) | `node --test` lulus untuk kasus U01–U13 | 45 menit | | selesai |
-| 3 | Formulir setoran: pilih nasabah, jenis dan kondisi (kondisi mengikuti jenis), input berat, nilai tampil otomatis, pesan kesalahan | Rizky | Kasus U07–U13 diuji di browser dan sesuai hasil yang diharapkan | 60 menit | | Belum |
+| 3 | Formulir setoran: pilih nasabah, jenis dan kondisi (kondisi mengikuti jenis), input berat, nilai tampil otomatis, pesan kesalahan | Rizky | Kasus U07–U13 diuji di browser dan sesuai hasil yang diharapkan | 60 menit | 40 menit | selesai |
 | 4 | Penyimpanan dan saldo: simpan setoran ke localStorage, saldo nasabah bertambah | Rizky | Kasus U14 dan U15 lulus (saldo benar, data tetap ada setelah reload) | 45 menit | | Belum |
 | 5 | Halaman rekap: tabel setoran dengan kolom tanggal, nasabah, kategori, jenis, kondisi, berat, nilai | Rizky | Kasus U16 lulus; dilanjutkan commit `checkpoint: versi pertama alur inti berjalan` | 45 menit | | Belum |
 | 6 | Uji menyeluruh dan catat kesalahan AI: jalankan U01–U16, isi bagian B kasus uji, tangkapan layar di `docs/bukti/` | Fadil | Semua kasus uji terisi hasil sebenarnya, Lulus?, dan bukti; `05-kesalahan-ai.md` terisi | 45 menit | | Belum |
