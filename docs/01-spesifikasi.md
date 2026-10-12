@@ -43,6 +43,9 @@ Jika tidak memungkinkan wawancara, tulis persona pengguna dan dasar asumsi kalia
 3. **Hitung nilai otomatis** dari harga per kg (sesuai kombinasi jenis dan kondisi) × berat, lalu tampilkan sebelum disimpan.
 4. **Simpan setoran** ke localStorage; saldo nasabah bertambah dan data tetap ada setelah halaman dimuat ulang.
 5. **Halaman rekap** yang menampilkan semua setoran tersimpan dengan kolom tanggal, nasabah, kategori, jenis, kondisi, berat, dan nilai.
+6. **Pencarian** di halaman rekap: tersaring langsung, tanpa membedakan huruf besar dan kecil.
+7. **Filter jenis** yang bisa dipakai bersamaan dengan pencarian. Pesan "Data tidak ditemukan" jika tidak ada yang cocok.
+8. **Unduh CSV** untuk baris yang sedang tampil, angka tanpa format Rp dan tanpa pemisah ribuan.
 
 ## 5. Di luar cakupan (tidak dikerjakan dalam challenge ini)
 - Produk fisik BioporiPrint (pipa biopori cetak 3D); tidak dibangun karena produk challenge tidak boleh melibatkan perangkat keras.
