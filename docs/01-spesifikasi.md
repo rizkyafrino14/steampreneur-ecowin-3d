@@ -85,17 +85,17 @@ Jika tidak memungkinkan wawancara, tulis persona pengguna dan dasar asumsi kalia
 
 ## 8. Kriteria "selesai"
 Setiap kriteria harus bisa diuji (bisa dijawab ya atau tidak).
-- [ ] Petugas dapat menyelesaikan empat langkah alur inti (pilih nasabah, isi formulir, lihat nilai, simpan) sampai setoran muncul di rekap.
-- [ ] Formulir menolak nasabah/jenis/kondisi yang belum dipilih dengan pesan kesalahan yang jelas.
-- [ ] Formulir menolak berat kosong, huruf, nol, negatif, kurang dari 0,1, lebih dari 100, atau lebih dari 2 angka desimal; berat 0,1 dan 100 diterima.
-- [ ] Nilai setoran sesuai tabel harga × berat dan dibulatkan ke rupiah terdekat (contoh: Kardus Kering 0,33 kg = Rp644).
-- [ ] Kondisi memengaruhi harga (Botol PET bening Dipisah 2,5 kg = Rp11.250, Utuh 2,5 kg = Rp8.750).
-- [ ] Saldo nasabah bertambah sebesar nilai setiap setoran yang disimpan.
-- [ ] Setoran dan saldo tetap ada setelah halaman dimuat ulang.
-- [ ] Halaman rekap menampilkan kolom tanggal, nasabah, kategori, jenis, kondisi, berat, dan nilai untuk semua setoran.
-- [ ] Semua unit test lulus dengan `node --test`.
+- [x] Petugas dapat menyelesaikan empat langkah alur inti (...) sampai setoran muncul di rekap.
+- [x] Formulir menolak nasabah/jenis/kondisi yang belum dipilih dengan pesan kesalahan yang jelas.
+- [x] Formulir menolak berat kosong, huruf, nol, negatif, ...
+- [x] Nilai setoran sesuai tabel harga × berat dan dibulatkan ke rupiah terdekat ...
+- [x] Kondisi memengaruhi harga ...
+- [x] Saldo nasabah bertambah sebesar nilai setiap setoran yang disimpan.
+- [x] Setoran dan saldo tetap ada setelah halaman dimuat ulang.
+- [x] Halaman rekap menampilkan kolom tanggal, nasabah, kategori, jenis, kondisi, berat, dan nilai ...
+- [x] Semua unit test lulus dengan `node --test`.
 - [ ] README dapat diikuti dari clone sampai website berjalan.
-- [ ] Kotak cari menyaring rekap langsung saat mengetik, tanpa membedakan huruf besar dan kecil (kata `kardus` dan `KARDUS` menghasilkan baris yang sama).
-- [ ] Filter jenis bisa dipakai bersamaan dengan pencarian, dan memilih "Semua jenis" mengembalikan seluruh data.
-- [ ] Jika ada data tetapi tidak ada yang cocok, tampil "Data tidak ditemukan" (berbeda dari "Belum ada setoran").
-- [ ] Unduh CSV memuat baris yang sedang tampil, baris pertama nama kolom, nilai tanpa Rp (contoh `8750`), dan bisa dibuka di Excel dengan kolom terpisah.
+- [x] Kotak cari menyaring rekap langsung saat mengetik ...
+- [x] Filter jenis bisa dipakai bersamaan dengan pencarian ...
+- [x] Jika ada data tetapi tidak ada yang cocok, tampil "Data tidak ditemukan" ...
+- [x] Unduh CSV memuat baris yang sedang tampil ...
