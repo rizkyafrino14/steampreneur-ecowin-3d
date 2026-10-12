@@ -64,12 +64,12 @@ Kasus uji manual lengkap (dengan hasil yang diharapkan dan tangkapan layar) ada 
 
 Kotak dicentang setelah fitur selesai dan lulus uji.
 
-- [ ] Pilih nasabah dari daftar data contoh
-- [ ] Formulir setoran dengan validasi (pilihan wajib, berat 0,1 sampai 100 kg, maksimal 2 desimal)
-- [ ] Perhitungan nilai otomatis berdasarkan jenis dan kondisi
-- [ ] Penyimpanan setoran di localStorage dan saldo nasabah
-- [ ] Halaman rekap (tanggal, nasabah, kategori, jenis, kondisi, berat, nilai)
-- [ ] Pencarian, filter, dan unduh CSV di halaman rekap (change request)
+- [x] Pilih nasabah dari daftar data contoh
+- [x] Formulir setoran dengan validasi (...)
+- [x] Perhitungan nilai otomatis berdasarkan jenis dan kondisi
+- [x] Penyimpanan setoran di localStorage dan saldo nasabah
+- [x] Halaman rekap (...)
+- [x] Pencarian, filter, dan unduh CSV di halaman rekap (change request)
 
 ## Batasan yang Diketahui
 
