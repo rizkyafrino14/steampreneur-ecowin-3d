@@ -30,8 +30,33 @@ Wajib ada:
 
 ## Unit test otomatis (jika ada)
 Nama file test: `tes/logika.test.js` (dijalankan dengan `node --test tes/`)
-Jumlah test: 20 lulus dari 20
+Jumlah test: 40 lulus dari 40
 
 Cakupan: U01–U06 (hitung nilai), U07–U11 dan U13 (validasi berat), U12 (pilihan wajib). U14–U16 membutuhkan aplikasi dan diuji di browser.
 
 Pembuktian bahwa test efektif: baris pembulatan `+ 50` di `hitungNilai` sengaja diubah menjadi `+ 0`. Hasilnya U03 (643 ≠ 644) dan U04 (247 ≠ 248) gagal, sedangkan 18 test lain tetap lulus. Kode lalu dikembalikan dan 20 test lulus kembali.
+
+## Kasus uji change request (cari, filter, unduh CSV)
+
+Data uji (disimpan lebih dulu lewat formulir, dari localStorage yang kosong):
+
+| Setoran | Nasabah | Jenis | Kondisi | Berat | Nilai (dihitung manual) |
+|---|---|---|---|---|---|
+| S1 | Bu Sari | Botol PET bening | Dipisah | 2,5 kg | 4.500 × 2,5 = Rp11.250 |
+| S2 | Bu Sari | Botol PET bening | Utuh | 2,5 kg | 3.500 × 2,5 = Rp8.750 |
+| S3 | Pak Budi | Kardus | Kering | 2 kg | 1.950 × 2 = Rp3.900 |
+| S4 | Bu Ani | Gelas plastik | Bersih | 1,5 kg | 3.000 × 1,5 = Rp4.500 |
+
+| ID | Kriteria yang diuji | Langkah / input | Hasil yang diharapkan | Hasil sebenarnya | Lulus? | Bukti (nama file tangkapan layar) |
+|---|---|---|---|---|---|---|
+| C01 | Pencarian | Ketik `kardus` di kotak cari | Hanya S3 yang tampil | Menampilkan S3 | Ya | C01.png |
+| C02 | Tanpa membedakan huruf | Ketik `KARDUS` | Hasil sama dengan C01 | Menampilkan S3 | Ya | C02.png |
+| C03 | Pencarian nasabah | Ketik `sari` | S1 dan S2 tampil | Menampilkan hasil 'sari' | Ya | C03.png |
+| C04 | Tidak ada yang cocok | Ketik `xyz` | Tabel kosong dan tampil "Data tidak ditemukan" | Data tidak ditemukan | Ya | C04.png |
+| C05 | Filter jenis | Pilih filter "Botol PET bening" | S1 dan S2 tampil | Menampilkan S1 dan S2 | Ya | C05.png |
+| C06 | Pencarian dan filter bersamaan | Filter "Botol PET bening", lalu ketik `utuh` | Hanya S2 tampil | Menampilkan S2 | Ya | C06.png |
+| C07 | Kembali ke semua data | Hapus kata pencarian, pilih "Semua jenis" | S1 sampai S4 tampil | Menampilkan S1 - S4 | Ya | C07.png |
+| C08 | Unduh CSV tanpa saringan | Klik Unduh CSV | Baris nama kolom dan 4 baris data | Menampilkan baris nama dan 4 baris data | Ya | C08.png |
+| C09 | Unduh CSV mengikuti saringan | Lakukan C06, klik Unduh CSV | Baris nama kolom dan 1 baris data (S2) | Menampilkan baris data S2 | Ya | C09.png |
+| C10 | Format angka di CSV | Buka file CSV di Excel | Kolom terpisah, nilai `8750` (bukan `Rp8.750`), berat `2.5` | Menampilkan S2 | Ya | C10.png |
+| C11 | Kasus lama tidak rusak | Jalankan ulang U01 sampai U16 dan `node --test tes/` | Semua tetap lulus | Menampilkan data yang lulus | Ya |  |
