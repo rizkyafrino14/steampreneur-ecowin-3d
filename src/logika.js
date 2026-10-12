@@ -125,6 +125,29 @@ function buatSetoran(nasabah, jenis, kondisi, beratTeks, hargaPerKg, tanggal) {
   };
 }
 
+// Mengurutkan setoran dari tanggal terbaru ke terlama untuk halaman rekap.
+// Mengembalikan salinan, tidak mengubah array asli, karena array itu juga
+// dipakai untuk hitungSaldo dan ditulis kembali ke penyimpanan.
+// Tanggal berformat YYYY-MM-DD sehingga cukup dibandingkan sebagai teks.
+// Untuk tanggal yang sama, setoran yang disimpan lebih akhir (indeks lebih besar)
+// tampil lebih dulu; indeks dipakai eksplisit agar hasilnya tidak bergantung pada
+// kestabilan sort di mesin JavaScript tertentu.
+function urutkanSetoran(daftarSetoran) {
+  return daftarSetoran
+    .map(function (setoran, indeks) {
+      return { setoran: setoran, indeks: indeks };
+    })
+    .sort(function (a, b) {
+      if (a.setoran.tanggal !== b.setoran.tanggal) {
+        return a.setoran.tanggal < b.setoran.tanggal ? 1 : -1;
+      }
+      return b.indeks - a.indeks;
+    })
+    .map(function (item) {
+      return item.setoran;
+    });
+}
+
 // Agar file yang sama bisa dites di Node.js. Di browser, baris ini dilewati
 // karena `module` tidak ada.
 if (typeof module !== "undefined") {
@@ -135,5 +158,6 @@ if (typeof module !== "undefined") {
     validasiSetoran,
     hitungSaldo,
     buatSetoran,
+    urutkanSetoran,
   };
 }

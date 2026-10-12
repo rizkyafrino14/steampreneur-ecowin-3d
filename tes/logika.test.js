@@ -13,6 +13,7 @@ const {
   validasiSetoran,
   hitungSaldo,
   buatSetoran,
+  urutkanSetoran,
 } = require("../src/logika.js");
 
 // ---- hitungNilai (U01-U06) ----
@@ -188,4 +189,36 @@ test("buatSetoran: objek nasabah mengisi nasabahId dan nama", () => {
   );
   assert.equal(setoran.nasabahId, 2);
   assert.equal(setoran.nasabah, "Pak Budi");
+});
+
+// ---- urutkanSetoran (langkah 5) ----
+// Hanya menguji urutan; nilai uang sengaja tidak dipakai di sini.
+
+test("urutkanSetoran: daftar kosong tetap kosong", () => {
+  assert.deepEqual(urutkanSetoran([]), []);
+});
+
+test("urutkanSetoran: terbaru dulu, tanggal sama -> yang disimpan akhir dulu", () => {
+  const pertama = { tanggal: "2026-10-11", id: "pertama" };
+  const kedua = { tanggal: "2026-10-12", id: "kedua" };
+  const ketiga = { tanggal: "2026-10-12", id: "ketiga" };
+  const hasil = urutkanSetoran([pertama, kedua, ketiga]);
+  assert.deepEqual(
+    hasil.map((s) => s.id),
+    ["ketiga", "kedua", "pertama"]
+  );
+});
+
+test("urutkanSetoran: array asli tidak berubah urutannya", () => {
+  const asli = [
+    { tanggal: "2026-10-11", id: "pertama" },
+    { tanggal: "2026-10-12", id: "kedua" },
+    { tanggal: "2026-10-12", id: "ketiga" },
+  ];
+  const hasil = urutkanSetoran(asli);
+  assert.notEqual(hasil, asli);
+  assert.deepEqual(
+    asli.map((s) => s.id),
+    ["pertama", "kedua", "ketiga"]
+  );
 });
