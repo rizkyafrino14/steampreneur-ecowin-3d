@@ -17,6 +17,8 @@
   <main class="konten">
     <h2>Rekap Setoran</h2>
 
+    <p class="jumlah" id="jumlah-setoran" aria-live="polite"></p>
+
     <div class="tabel-bungkus">
       <table id="tabel-rekap">
         <thead>
@@ -36,9 +38,10 @@
     </div>
   </main>
 
-  <!-- Urutan script: data, logika, lalu app -->
-  <script src="data.js"></script>
+  <!-- Urutan script: penyimpanan, logika, lalu rekap. data.js tidak perlu
+       karena rekap membaca setoran yang sudah tersimpan. -->
+  <script src="penyimpanan.js"></script>
   <script src="logika.js"></script>
-  <script src="app.js"></script>
+  <script src="rekap.js"></script>
 </body>
 </html>

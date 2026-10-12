@@ -146,6 +146,22 @@ select:disabled {
   border-radius: 6px;
 }
 
+/* Halaman rekap */
+.jumlah {
+  margin: 0 0 8px;
+  font-weight: 600;
+}
+
+td.angka {
+  text-align: right;
+}
+
+td.kosong {
+  text-align: center;
+  color: #5a6a5a;
+  white-space: normal;
+}
+
 .saldo {
   margin: 4px 0 0;
   font-size: 0.95rem;
