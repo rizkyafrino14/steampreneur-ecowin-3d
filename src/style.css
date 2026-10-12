@@ -147,6 +147,34 @@ select:disabled {
 }
 
 /* Halaman rekap */
+.alat {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+button:disabled {
+  background: #9aa89a;
+  border-color: #9aa89a;
+  cursor: not-allowed;
+}
+
+@media (min-width: 600px) {
+  .alat {
+    flex-direction: row;
+    align-items: flex-end;
+  }
+
+  .alat .isian {
+    flex: 1;
+  }
+
+  .alat button {
+    width: auto;
+  }
+}
+
 .jumlah {
   margin: 0 0 8px;
   font-weight: 600;

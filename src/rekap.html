@@ -17,6 +17,20 @@
   <main class="konten">
     <h2>Rekap Setoran</h2>
 
+    <div class="alat">
+      <div class="isian">
+        <label for="cari">Cari</label>
+        <input type="text" id="cari" placeholder="Nasabah, jenis, atau kondisi" autocomplete="off">
+      </div>
+      <div class="isian">
+        <label for="filter-jenis">Jenis</label>
+        <select id="filter-jenis">
+          <option value="">Semua jenis</option>
+        </select>
+      </div>
+      <button type="button" id="unduh-csv">Unduh CSV</button>
+    </div>
+
     <p class="jumlah" id="jumlah-setoran" aria-live="polite"></p>
 
     <div class="tabel-bungkus">
@@ -38,8 +52,9 @@
     </div>
   </main>
 
-  <!-- Urutan script: penyimpanan, logika, lalu rekap. data.js tidak perlu
-       karena rekap membaca setoran yang sudah tersimpan. -->
+  <!-- Urutan script: data, penyimpanan, logika, lalu rekap. data.js dipakai
+       untuk daftar jenis pada filter. -->
+  <script src="data.js"></script>
   <script src="penyimpanan.js"></script>
   <script src="logika.js"></script>
   <script src="rekap.js"></script>
