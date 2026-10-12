@@ -29,5 +29,9 @@ Wajib ada:
 - minimal satu kasus **di batas aturan** (contoh: tepat Rp50.000 jika aturannya "minimal Rp50.000").
 
 ## Unit test otomatis (jika ada)
-Nama file test: ...
-Jumlah test: ... lulus dari ...
+Nama file test: `tes/logika.test.js` (dijalankan dengan `node --test tes/`)
+Jumlah test: 20 lulus dari 20
+
+Cakupan: U01–U06 (hitung nilai), U07–U11 dan U13 (validasi berat), U12 (pilihan wajib). U14–U16 membutuhkan aplikasi dan diuji di browser.
+
+Pembuktian bahwa test efektif: baris pembulatan `+ 50` di `hitungNilai` sengaja diubah menjadi `+ 0`. Hasilnya U03 (643 ≠ 644) dan U04 (247 ≠ 248) gagal, sedangkan 18 test lain tetap lulus. Kode lalu dikembalikan dan 20 test lulus kembali.
