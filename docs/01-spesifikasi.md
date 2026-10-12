@@ -38,7 +38,7 @@ Jika tidak memungkinkan wawancara, tulis persona pengguna dan dasar asumsi kalia
 
 
 ## 4. Fitur wajib (hanya untuk alur inti)
-1. **Pilih nasabah** dari daftar data contoh.
+1. **Pilih nasabah** dari daftar data contoh; saldo nasabah yang dipilih ditampilkan di formulir.
 2. **Isi formulir setoran**: kategori (Anorganik), jenis, kondisi, dan berat (kg), dengan validasi dan pesan kesalahan yang jelas.
 3. **Hitung nilai otomatis** dari harga per kg (sesuai kombinasi jenis dan kondisi) × berat, lalu tampilkan sebelum disimpan.
 4. **Simpan setoran** ke localStorage; saldo nasabah bertambah dan data tetap ada setelah halaman dimuat ulang.

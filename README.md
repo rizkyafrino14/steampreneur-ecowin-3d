@@ -29,7 +29,7 @@ EcoWin adalah website bank sampah digital untuk unit RT/RW. Petugas bank sampah 
    ```
 3. Tidak ada dependensi yang perlu di-install (HTML, CSS, dan JavaScript biasa tanpa framework).
 4. Buka berkas `src/index.html` di browser (klik dua kali, atau seret ke jendela browser). Tidak perlu server.
-5. Halaman rekap dibuka lewat menu di dalam aplikasi. [ISI: nama berkas halaman rekap setelah dibuat]
+5. Halaman rekap dibuka lewat menu di dalam aplikasi.
 
 ### Akun atau data contoh
 
@@ -43,7 +43,7 @@ Website tidak memerlukan login. Daftar nasabah dan tabel harga sudah tersedia se
 
 ## Tangkapan Layar Alur Inti
 
-Minimal satu tangkapan layar untuk setiap langkah alur inti, termasuk hasil change request. Gambar disimpan di `docs/bukti/`. [ISI: ditambahkan setelah aplikasi berjalan]
+Minimal satu tangkapan layar untuk setiap langkah alur inti, termasuk hasil change request. Gambar disimpan di `docs/bukti/`.
 
 1. Langkah 1: ![Langkah 1](docs/bukti/langkah-1.png)
 2. Langkah 2: ![Langkah 2](docs/bukti/langkah-2.png)
@@ -56,7 +56,7 @@ Minimal satu tangkapan layar untuk setiap langkah alur inti, termasuk hasil chan
 node --test tes/
 ```
 
-Hasil yang diharapkan: semua test lulus. [ISI: jumlah test setelah dibuat]
+Hasil yang diharapkan: semua test lulus.
 
 Kasus uji manual lengkap (dengan hasil yang diharapkan dan tangkapan layar) ada di `docs/04-kasus-uji.md`.
 
