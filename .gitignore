@@ -1,0 +1,17 @@
+# Dependensi dan hasil build (jangan diunggah)
+node_modules/
+vendor/
+dist/
+build/
+.next/
+.cache/
+
+# File rahasia: password, API key, token
+.env
+.env.*
+!.env.example
+
+# File sistem dan editor
+.DS_Store
+Thumbs.db
+*.log
