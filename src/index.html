@@ -17,8 +17,49 @@
   <main class="konten">
     <h2>Formulir Setoran</h2>
 
-    <!-- Kerangka formulir; isian dan pilihan akan ditambahkan nanti -->
+    <!-- novalidate: validasi dilakukan oleh validasiSetoran, bukan oleh browser,
+         agar pesan kesalahannya sama dengan yang dites di logika.js -->
     <form id="form-setoran" novalidate>
+      <div class="isian">
+        <label for="nasabah">Nasabah</label>
+        <select id="nasabah" name="nasabah">
+          <option value="">Pilih nasabah</option>
+        </select>
+        <p class="galat" id="galat-nasabah" role="alert"></p>
+      </div>
+
+      <div class="isian">
+        <label for="kategori">Kategori</label>
+        <input type="text" id="kategori" name="kategori" value="Anorganik" readonly>
+      </div>
+
+      <div class="isian">
+        <label for="jenis">Jenis</label>
+        <select id="jenis" name="jenis">
+          <option value="">Pilih jenis</option>
+        </select>
+        <p class="galat" id="galat-jenis" role="alert"></p>
+      </div>
+
+      <div class="isian">
+        <label for="kondisi">Kondisi</label>
+        <select id="kondisi" name="kondisi" disabled>
+          <option value="">Pilih jenis dulu</option>
+        </select>
+        <p class="galat" id="galat-kondisi" role="alert"></p>
+      </div>
+
+      <div class="isian">
+        <label for="berat">Berat (kg)</label>
+        <!-- type="text" + inputmode="decimal": koma bisa diketik, keyboard HP tetap angka -->
+        <input type="text" id="berat" name="berat" inputmode="decimal" autocomplete="off" placeholder="contoh: 2,5">
+        <p class="galat" id="galat-berat" role="alert"></p>
+      </div>
+
+      <p class="nilai" id="nilai" aria-live="polite">Nilai: -</p>
+
+      <button type="submit">Simpan</button>
+      <p class="sukses" id="pesan-sukses" role="status"></p>
     </form>
   </main>
 

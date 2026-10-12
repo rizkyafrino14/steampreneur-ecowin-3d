@@ -111,3 +111,43 @@ td {
 th {
   background: #e8f1e8;
 }
+
+/* Formulir setoran */
+.isian {
+  display: flex;
+  flex-direction: column;
+}
+
+input[readonly],
+select:disabled {
+  background: #eef2ee;
+  color: #4a5a4a;
+}
+
+/* Pesan kesalahan; paragraf kosong disembunyikan agar tidak memakan ruang */
+.galat {
+  margin: 4px 0 0;
+  color: #c62828;
+  font-size: 0.9rem;
+}
+
+.galat:empty,
+.sukses:empty {
+  display: none;
+}
+
+.nilai {
+  margin: 0;
+  padding: 12px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-align: center;
+  background: #e8f1e8;
+  border-radius: 6px;
+}
+
+.sukses {
+  margin: 0;
+  color: #2e7d32;
+  font-weight: 600;
+}
