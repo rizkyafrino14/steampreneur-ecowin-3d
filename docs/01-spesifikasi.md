@@ -45,13 +45,13 @@ Jika tidak memungkinkan wawancara, tulis persona pengguna dan dasar asumsi kalia
 5. **Halaman rekap** yang menampilkan semua setoran tersimpan dengan kolom tanggal, nasabah, kategori, jenis, kondisi, berat, dan nilai.
 6. **Pencarian** di halaman rekap: tersaring langsung, tanpa membedakan huruf besar dan kecil.
 7. **Filter jenis** yang bisa dipakai bersamaan dengan pencarian. Pesan "Data tidak ditemukan" jika tidak ada yang cocok.
-8. **Unduh CSV** untuk baris yang sedang tampil, angka tanpa format Rp dan tanpa pemisah ribuan.
+8. **Unduh CSV** (`ecowin-rekap.csv`) untuk baris yang sedang tampil. Baris pertama berisi nama kolom, nilai ditulis tanpa Rp dan tanpa pemisah ribuan (contoh `8750`), dan berat memakai titik desimal (contoh `2.5`).
 
 ## 5. Di luar cakupan (tidak dikerjakan dalam challenge ini)
 - Produk fisik BioporiPrint (pipa biopori cetak 3D); tidak dibangun karena produk challenge tidak boleh melibatkan perangkat keras.
 - Sampah organik dan estimasi kompos (berat × 0,5): baru ditambahkan **hanya jika** kelima kriteria minimum sudah tuntas.
 - Login dan manajemen akun, penarikan saldo, edit atau hapus setoran, laporan per RT/RW, dan server atau database online.
-- Pencarian, filter, dan ekspor CSV: dikerjakan sebagai change request setelah Checkpoint 2, lalu spesifikasi ini diperbarui.
+- Filter selain jenis sampah (nasabah, tanggal) dan penyimpanan berkas CSV ke server.
 - Data warga sungguhan; semua nama dan harga adalah data contoh.
 
 ## 6. Aturan bisnis dan perhitungan
@@ -95,3 +95,7 @@ Setiap kriteria harus bisa diuji (bisa dijawab ya atau tidak).
 - [ ] Halaman rekap menampilkan kolom tanggal, nasabah, kategori, jenis, kondisi, berat, dan nilai untuk semua setoran.
 - [ ] Semua unit test lulus dengan `node --test`.
 - [ ] README dapat diikuti dari clone sampai website berjalan.
+- [ ] Kotak cari menyaring rekap langsung saat mengetik, tanpa membedakan huruf besar dan kecil (kata `kardus` dan `KARDUS` menghasilkan baris yang sama).
+- [ ] Filter jenis bisa dipakai bersamaan dengan pencarian, dan memilih "Semua jenis" mengembalikan seluruh data.
+- [ ] Jika ada data tetapi tidak ada yang cocok, tampil "Data tidak ditemukan" (berbeda dari "Belum ada setoran").
+- [ ] Unduh CSV memuat baris yang sedang tampil, baris pertama nama kolom, nilai tanpa Rp (contoh `8750`), dan bisa dibuka di Excel dengan kolom terpisah.
