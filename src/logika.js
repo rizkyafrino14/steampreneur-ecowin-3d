@@ -148,6 +148,69 @@ function urutkanSetoran(daftarSetoran) {
     });
 }
 
+// Menyaring setoran untuk halaman rekap berdasarkan kata pencarian dan jenis.
+// opsi: { kata, jenis }. Keduanya berlaku bersamaan (harus memenuhi dua-duanya).
+// Mengembalikan array baru dengan urutan asli, dan tidak mengubah array asli
+// karena array itu juga dipakai untuk tampilan lain dan unduhan.
+function saringSetoran(daftarSetoran, opsi) {
+  const pengaturan = opsi || {};
+  // Spasi di tepi dipangkas karena petugas sering mengetik spasi tak sengaja.
+  const kata = String(pengaturan.kata || "").trim().toLowerCase();
+  const jenis = pengaturan.jenis || "";
+
+  return daftarSetoran.filter(function (setoran) {
+    // Jenis dicocokkan persis (bukan potongan) karena berasal dari pilihan tetap.
+    if (jenis !== "" && setoran.jenis !== jenis) return false;
+    if (kata === "") return true;
+
+    // Kata dicocokkan sebagai potongan pada kolom teks saja; berat dan nilai
+    // sengaja tidak dicari karena angkanya mudah salah cocok dengan kata lain.
+    return [setoran.nasabah, setoran.jenis, setoran.kondisi, setoran.kategori].some(
+      function (isi) {
+        return String(isi || "").toLowerCase().includes(kata);
+      }
+    );
+  });
+}
+
+// Membungkus satu field CSV dengan tanda kutip ganda jika perlu.
+// Tanpa ini, nama seperti `Bu "Sari", RT 1` akan menggeser kolom di Excel.
+function kutipFieldCsv(nilai) {
+  const teks = String(nilai === undefined || nilai === null ? "" : nilai);
+  if (/[",\r\n]/.test(teks)) {
+    return '"' + teks.replace(/"/g, '""') + '"';
+  }
+  return teks;
+}
+
+// Membuat isi file CSV dari daftar setoran, urutan baris sama dengan daftar.
+// Angka ditulis polos (nilai 8750, berat 2.5 dengan titik) karena Excel dan
+// program lain tidak bisa menghitung teks seperti "Rp8.750" atau "2,5".
+// Pemisah baris \r\n sesuai standar CSV; tidak ada baris kosong di akhir.
+function buatCsv(daftarSetoran) {
+  const baris = [
+    "Tanggal,Nasabah,Kategori,Jenis,Kondisi,Berat (kg),Nilai (Rp)",
+  ];
+
+  for (const setoran of daftarSetoran) {
+    baris.push(
+      [
+        setoran.tanggal,
+        setoran.nasabah,
+        setoran.kategori,
+        setoran.jenis,
+        setoran.kondisi,
+        setoran.berat,
+        setoran.nilai,
+      ]
+        .map(kutipFieldCsv)
+        .join(",")
+    );
+  }
+
+  return baris.join("\r\n");
+}
+
 // Agar file yang sama bisa dites di Node.js. Di browser, baris ini dilewati
 // karena `module` tidak ada.
 if (typeof module !== "undefined") {
@@ -159,5 +222,7 @@ if (typeof module !== "undefined") {
     hitungSaldo,
     buatSetoran,
     urutkanSetoran,
+    saringSetoran,
+    buatCsv,
   };
 }

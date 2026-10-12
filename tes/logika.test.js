@@ -14,6 +14,8 @@ const {
   hitungSaldo,
   buatSetoran,
   urutkanSetoran,
+  saringSetoran,
+  buatCsv,
 } = require("../src/logika.js");
 
 // ---- hitungNilai (U01-U06) ----
@@ -221,4 +223,83 @@ test("urutkanSetoran: array asli tidak berubah urutannya", () => {
     asli.map((s) => s.id),
     ["pertama", "kedua", "ketiga"]
   );
+});
+
+// ---- saringSetoran dan buatCsv (change request: cari, filter, CSV) ----
+// Data uji dan hasil yang diharapkan berasal dari docs/analisis-change-request.md.
+
+const S1 = { tanggal: "2026-10-12", nasabahId: 1, nasabah: "Bu Sari", kategori: "Anorganik", jenis: "Botol PET bening", kondisi: "Dipisah", berat: 2.5, nilai: 11250 };
+const S2 = { tanggal: "2026-10-12", nasabahId: 1, nasabah: "Bu Sari", kategori: "Anorganik", jenis: "Botol PET bening", kondisi: "Utuh", berat: 2.5, nilai: 8750 };
+const S3 = { tanggal: "2026-10-12", nasabahId: 2, nasabah: "Pak Budi", kategori: "Anorganik", jenis: "Kardus", kondisi: "Kering", berat: 2, nilai: 3900 };
+const S4 = { tanggal: "2026-10-12", nasabahId: 3, nasabah: "Bu Ani", kategori: "Anorganik", jenis: "Gelas plastik", kondisi: "Bersih", berat: 1.5, nilai: 4500 };
+const SEMUA = [S1, S2, S3, S4];
+
+test("saringSetoran: kata 'kardus' -> hanya S3", () => {
+  assert.deepEqual(saringSetoran(SEMUA, { kata: "kardus", jenis: "" }), [S3]);
+});
+
+test("saringSetoran: huruf besar tidak berpengaruh ('KARDUS' -> S3)", () => {
+  assert.deepEqual(saringSetoran(SEMUA, { kata: "KARDUS", jenis: "" }), [S3]);
+});
+
+test("saringSetoran: kata 'sari' -> S1 dan S2", () => {
+  assert.deepEqual(saringSetoran(SEMUA, { kata: "sari", jenis: "" }), [S1, S2]);
+});
+
+test("saringSetoran: kata 'xyz' -> kosong", () => {
+  assert.deepEqual(saringSetoran(SEMUA, { kata: "xyz", jenis: "" }), []);
+});
+
+test("saringSetoran: jenis 'Botol PET bening' -> S1 dan S2", () => {
+  assert.deepEqual(
+    saringSetoran(SEMUA, { kata: "", jenis: "Botol PET bening" }),
+    [S1, S2]
+  );
+});
+
+test("saringSetoran: jenis 'Botol PET bening' dan kata 'utuh' -> S2", () => {
+  assert.deepEqual(
+    saringSetoran(SEMUA, { kata: "utuh", jenis: "Botol PET bening" }),
+    [S2]
+  );
+});
+
+test("saringSetoran: kata dan jenis kosong -> semua, berupa salinan", () => {
+  const hasil = saringSetoran(SEMUA, { kata: "", jenis: "" });
+  assert.deepEqual(hasil, [S1, S2, S3, S4]);
+  assert.notEqual(hasil, SEMUA);
+});
+
+test("saringSetoran: array asli tidak berubah", () => {
+  const asli = [S1, S2, S3, S4];
+  saringSetoran(asli, { kata: "kardus", jenis: "Kardus" });
+  assert.deepEqual(asli, [S1, S2, S3, S4]);
+});
+
+test("buatCsv: satu setoran persis sesuai format", () => {
+  assert.equal(
+    buatCsv([S2]),
+    "Tanggal,Nasabah,Kategori,Jenis,Kondisi,Berat (kg),Nilai (Rp)\r\n" +
+      "2026-10-12,Bu Sari,Anorganik,Botol PET bening,Utuh,2.5,8750"
+  );
+});
+
+test("buatCsv: daftar kosong hanya berisi baris nama kolom", () => {
+  assert.equal(
+    buatCsv([]),
+    "Tanggal,Nasabah,Kategori,Jenis,Kondisi,Berat (kg),Nilai (Rp)"
+  );
+});
+
+test("buatCsv: koma dan tanda kutip di dalam field dibungkus kutip ganda", () => {
+  const khusus = { ...S2, nasabah: 'Bu "Sari", RT 1' };
+  const baris = buatCsv([khusus]).split("\r\n")[1];
+  assert.ok(baris.includes('"Bu ""Sari"", RT 1"'));
+});
+
+test("buatCsv: nilai tanpa 'Rp' dan tanpa titik ribuan", () => {
+  const baris = buatCsv([S1]).split("\r\n")[1];
+  assert.ok(!baris.includes("Rp"));
+  assert.ok(baris.endsWith(",11250"));
+  assert.ok(!baris.includes("11.250"));
 });
