@@ -14,6 +14,7 @@
   var isianBerat = document.getElementById("berat");
   var areaNilai = document.getElementById("nilai");
   var pesanSukses = document.getElementById("pesan-sukses");
+  var areaSaldo = document.getElementById("saldo");
 
   var galat = {
     nasabah: document.getElementById("galat-nasabah"),
@@ -86,6 +87,65 @@
     areaNilai.textContent = "Nilai: Rp" + nilai.toLocaleString("id-ID");
   }
 
+  // ---- Penyimpanan (localStorage) ----
+
+  var KUNCI_SETORAN = "ecowin_setoran";
+
+  // Membaca daftar setoran. localStorage bisa tidak tersedia (mode privat,
+  // diblokir) atau isinya rusak, jadi semua kegagalan dianggap "belum ada data"
+  // agar halaman tetap bisa dipakai, bukan berhenti dengan error.
+  function muatSetoran() {
+    try {
+      var teks = window.localStorage.getItem(KUNCI_SETORAN);
+      if (!teks) return [];
+      var daftar = JSON.parse(teks);
+      return Array.isArray(daftar) ? daftar : [];
+    } catch (galatBaca) {
+      return [];
+    }
+  }
+
+  // Mengembalikan true jika berhasil. Pemanggil harus memeriksa hasilnya agar
+  // tidak menampilkan "tersimpan" padahal penulisan gagal (mis. penyimpanan penuh).
+  function simpanSetoran(daftar) {
+    try {
+      window.localStorage.setItem(KUNCI_SETORAN, JSON.stringify(daftar));
+      return true;
+    } catch (galatTulis) {
+      return false;
+    }
+  }
+
+  // Tanggal menurut jam lokal komputer, format YYYY-MM-DD. toISOString()
+  // sengaja tidak dipakai karena memakai UTC: setoran pukul 06.00 WIB akan
+  // tercatat sebagai hari sebelumnya.
+  function tanggalHariIni() {
+    var sekarang = new Date();
+    var bulan = String(sekarang.getMonth() + 1).padStart(2, "0");
+    var hari = String(sekarang.getDate()).padStart(2, "0");
+    return sekarang.getFullYear() + "-" + bulan + "-" + hari;
+  }
+
+  function cariNasabah(idTeks) {
+    var id = Number(idTeks);
+    for (var i = 0; i < NASABAH.length; i++) {
+      if (NASABAH[i].id === id) return NASABAH[i];
+    }
+    return null;
+  }
+
+  // Saldo selalu dihitung ulang dari setoran yang tersimpan dan tidak disimpan
+  // terpisah, sehingga tidak pernah berbeda dari data setoran.
+  function perbaruiSaldo() {
+    var nasabah = cariNasabah(pilihNasabah.value);
+    if (pilihNasabah.value === "" || nasabah === null) {
+      areaSaldo.textContent = "Saldo: -";
+      return;
+    }
+    var saldo = hitungSaldo(muatSetoran(), nasabah.id);
+    areaSaldo.textContent = "Saldo: Rp" + saldo.toLocaleString("id-ID");
+  }
+
   function bersihkanGalat() {
     Object.keys(galat).forEach(function (kunci) {
       galat[kunci].textContent = "";
@@ -108,6 +168,7 @@
 
   pilihNasabah.addEventListener("change", function () {
     saatIsianBerubah("nasabah");
+    perbaruiSaldo();
   });
 
   pilihJenis.addEventListener("change", function () {
@@ -125,9 +186,10 @@
   });
 
   form.addEventListener("submit", function (kejadian) {
-    // Mencegah halaman dimuat ulang; pada langkah ini belum ada yang disimpan.
+    // Mencegah halaman dimuat ulang oleh pengiriman formulir bawaan browser.
     kejadian.preventDefault();
     pesanSukses.textContent = "";
+    pesanSukses.className = "sukses";
 
     var hasil = validasiSetoran({
       nasabah: pilihNasabah.value,
@@ -142,11 +204,46 @@
     }
 
     bersihkanGalat();
-    pesanSukses.textContent = "Data valid. Penyimpanan dibuat di langkah berikutnya.";
+
+    // Nilai <select> selalu string, sedangkan id nasabah di data berupa angka
+    // dan hitungSaldo membandingkan dengan ===. Karena itu id dicari lewat Number.
+    var nasabah = cariNasabah(pilihNasabah.value);
+    var harga = cariHarga(HARGA, pilihJenis.value, pilihKondisi.value);
+    var setoran = buatSetoran(
+      nasabah,
+      pilihJenis.value,
+      pilihKondisi.value,
+      isianBerat.value,
+      harga,
+      tanggalHariIni()
+    );
+
+    // Data lama dibaca ulang tepat sebelum menulis, bukan memakai salinan di
+    // memori, supaya setoran dari tab lain tidak tertimpa.
+    var daftar = muatSetoran();
+    daftar.push(setoran);
+
+    if (!simpanSetoran(daftar)) {
+      pesanSukses.className = "galat";
+      pesanSukses.textContent = "Penyimpanan gagal. Data tidak tersimpan.";
+      return;
+    }
+
+    pesanSukses.textContent =
+      "Setoran tersimpan. Nilai: Rp" + setoran.nilai.toLocaleString("id-ID");
+
+    // Nasabah dibiarkan terpilih karena petugas biasanya mencatat beberapa
+    // jenis sampah untuk nasabah yang sama berturut-turut.
+    pilihJenis.value = "";
+    perbaruiPilihanKondisi();
+    isianBerat.value = "";
+    perbaruiNilai();
+    perbaruiSaldo();
   });
 
   isiPilihanNasabah();
   isiPilihanJenis();
   perbaruiPilihanKondisi();
   perbaruiNilai();
+  perbaruiSaldo();
 })();

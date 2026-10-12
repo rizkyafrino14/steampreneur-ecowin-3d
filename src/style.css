@@ -146,6 +146,13 @@ select:disabled {
   border-radius: 6px;
 }
 
+.saldo {
+  margin: 4px 0 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #2e7d32;
+}
+
 .sukses {
   margin: 0;
   color: #2e7d32;
