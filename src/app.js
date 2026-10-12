@@ -3,8 +3,8 @@
 // validasi dipanggil dari logika.js supaya tidak ada dua versi aturan yang sama.
 
 (function () {
-  // app.js juga dimuat oleh rekap.html yang tidak punya formulir ini.
-  // Tanpa pemeriksaan ini, halaman rekap akan error di konsol.
+  // Jaga-jaga jika file ini dimuat di halaman yang tidak punya formulir setoran
+  // (rekap.html memakai rekap.js); tanpa ini akan muncul error di konsol.
   var form = document.getElementById("form-setoran");
   if (!form) return;
 
@@ -87,34 +87,8 @@
     areaNilai.textContent = "Nilai: Rp" + nilai.toLocaleString("id-ID");
   }
 
-  // ---- Penyimpanan (localStorage) ----
-
-  var KUNCI_SETORAN = "ecowin_setoran";
-
-  // Membaca daftar setoran. localStorage bisa tidak tersedia (mode privat,
-  // diblokir) atau isinya rusak, jadi semua kegagalan dianggap "belum ada data"
-  // agar halaman tetap bisa dipakai, bukan berhenti dengan error.
-  function muatSetoran() {
-    try {
-      var teks = window.localStorage.getItem(KUNCI_SETORAN);
-      if (!teks) return [];
-      var daftar = JSON.parse(teks);
-      return Array.isArray(daftar) ? daftar : [];
-    } catch (galatBaca) {
-      return [];
-    }
-  }
-
-  // Mengembalikan true jika berhasil. Pemanggil harus memeriksa hasilnya agar
-  // tidak menampilkan "tersimpan" padahal penulisan gagal (mis. penyimpanan penuh).
-  function simpanSetoran(daftar) {
-    try {
-      window.localStorage.setItem(KUNCI_SETORAN, JSON.stringify(daftar));
-      return true;
-    } catch (galatTulis) {
-      return false;
-    }
-  }
+  // muatSetoran() dan simpanSetoran() berasal dari penyimpanan.js, yang harus
+  // dimuat sebelum file ini.
 
   // Tanggal menurut jam lokal komputer, format YYYY-MM-DD. toISOString()
   // sengaja tidak dipakai karena memakai UTC: setoran pukul 06.00 WIB akan
