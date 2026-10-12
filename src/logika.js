@@ -89,8 +89,51 @@ function validasiSetoran(data) {
   return { valid: valid, pesan: pesan };
 }
 
+// Menjumlahkan nilai semua setoran milik satu nasabah.
+// Saldo sengaja dihitung dari daftar setoran (bukan disimpan sendiri), supaya
+// saldo tidak bisa berbeda dari rekap. Nilai setoran sudah bilangan bulat
+// rupiah, jadi penjumlahannya tidak menimbulkan selisih pecahan.
+function hitungSaldo(daftarSetoran, nasabahId) {
+  let saldo = 0;
+  for (const setoran of daftarSetoran) {
+    if (setoran.nasabahId === nasabahId) {
+      saldo += setoran.nilai;
+    }
+  }
+  return saldo;
+}
+
+// Membuat satu catatan setoran yang siap disimpan.
+// "nasabah" boleh berupa objek nasabah ({ id, nama }) atau hanya id-nya.
+// Nama ikut disimpan di setoran agar rekap tetap terbaca walaupun daftar
+// nasabah berubah di kemudian hari.
+// Mengasumsikan isian sudah lolos validasiSetoran; berat dan nilai tetap
+// dihitung lewat fungsi yang sama dengan tampilan, agar tidak ada dua rumus.
+function buatSetoran(nasabah, jenis, kondisi, beratTeks, hargaPerKg, tanggal) {
+  const adaObjek = nasabah !== null && typeof nasabah === "object";
+  const berat = validasiBerat(beratTeks).berat;
+
+  return {
+    tanggal: tanggal,
+    nasabahId: adaObjek ? nasabah.id : nasabah,
+    nasabah: adaObjek ? nasabah.nama : "",
+    kategori: "Anorganik",
+    jenis: jenis,
+    kondisi: kondisi,
+    berat: berat,
+    nilai: hitungNilai(hargaPerKg, berat),
+  };
+}
+
 // Agar file yang sama bisa dites di Node.js. Di browser, baris ini dilewati
 // karena `module` tidak ada.
 if (typeof module !== "undefined") {
-  module.exports = { cariHarga, validasiBerat, hitungNilai, validasiSetoran };
+  module.exports = {
+    cariHarga,
+    validasiBerat,
+    hitungNilai,
+    validasiSetoran,
+    hitungSaldo,
+    buatSetoran,
+  };
 }

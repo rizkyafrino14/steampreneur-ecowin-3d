@@ -11,6 +11,8 @@ const {
   validasiBerat,
   hitungNilai,
   validasiSetoran,
+  hitungSaldo,
+  buatSetoran,
 } = require("../src/logika.js");
 
 // ---- hitungNilai (U01-U06) ----
@@ -139,4 +141,51 @@ test("validasiSetoran: berat salah ikut menolak formulir", () => {
   });
   assert.equal(hasil.valid, false);
   assert.notEqual(hasil.pesan.berat, "");
+});
+
+// ---- hitungSaldo dan buatSetoran (langkah 4) ----
+
+test("hitungSaldo: daftar kosong = 0", () => {
+  assert.equal(hitungSaldo([], 1), 0);
+});
+
+test("hitungSaldo: dua setoran nasabah 1 menjumlah menjadi 20000", () => {
+  const pertama = [{ nasabahId: 1, nilai: 11250 }];
+  const kedua = [...pertama, { nasabahId: 1, nilai: 8750 }];
+  assert.equal(hitungSaldo(pertama, 1), 11250);
+  assert.equal(hitungSaldo(kedua, 1), 20000);
+});
+
+test("hitungSaldo: saldo tiap nasabah terpisah, nasabah tanpa setoran = 0", () => {
+  const daftar = [
+    { nasabahId: 1, nilai: 11250 },
+    { nasabahId: 2, nilai: 5000 },
+  ];
+  assert.equal(hitungSaldo(daftar, 1), 11250);
+  assert.equal(hitungSaldo(daftar, 2), 5000);
+  assert.equal(hitungSaldo(daftar, 3), 0);
+});
+
+test("buatSetoran: PET bening Dipisah 2,5 kg = berat 2.5, nilai 11250", () => {
+  const setoran = buatSetoran(1, "Botol PET bening", "Dipisah", "2,5", 4500, "2026-10-12");
+  assert.equal(setoran.berat, 2.5);
+  assert.equal(setoran.nilai, 11250);
+  assert.equal(setoran.kategori, "Anorganik");
+  assert.equal(setoran.nasabahId, 1);
+  assert.equal(setoran.tanggal, "2026-10-12");
+  assert.equal(setoran.jenis, "Botol PET bening");
+  assert.equal(setoran.kondisi, "Dipisah");
+});
+
+test("buatSetoran: objek nasabah mengisi nasabahId dan nama", () => {
+  const setoran = buatSetoran(
+    { id: 2, nama: "Pak Budi", rt: "02" },
+    "Kardus",
+    "Kering",
+    "1",
+    1950,
+    "2026-10-12"
+  );
+  assert.equal(setoran.nasabahId, 2);
+  assert.equal(setoran.nasabah, "Pak Budi");
 });
