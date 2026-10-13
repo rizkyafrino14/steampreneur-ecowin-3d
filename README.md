@@ -53,7 +53,7 @@ Minimal satu tangkapan layar untuk setiap langkah alur inti, termasuk hasil chan
 ## Cara Menjalankan Pengujian
 
 ```
-node --test tes/
+node --test tes/logika.test.js
 ```
 
 Hasil yang diharapkan: semua test lulus.
