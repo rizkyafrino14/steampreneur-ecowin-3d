@@ -16,10 +16,16 @@
 
 4. Apa yang akan kami lakukan berbeda jika mengulang challenge ini?
 
+**Jawaban (Rofiqi):** Pertama, kami akan memeriksa lokasi folder Git dan aturan nama repositori sejak awal, karena sempat ada README yang masuk ke subfolder dan nama repo yang salah. Kedua, file yang diedit banyak orang seperti `08-penjelasan-kode.md` akan dikerjakan bergiliran dan selalu `git pull` dulu, karena pernah tulisan satu orang hilang saat konflik diselesaikan. Ketiga, jam di log prompt akan dicatat saat prompt dikirim, bukan belakangan, supaya sesuai dengan jam commit.
+
 5. Bagaimana kami mengatur waktu? Langkah mana yang jauh lebih lama dari estimasi, dan kenapa?
+
+**Jawaban (Rofiqi):** Kami memecah pekerjaan menjadi tujuh langkah dengan estimasi di `02-rencana.md`, lalu mencatat waktu sebenarnya. Langkah kode selesai sesuai atau lebih cepat dari estimasi: scaffolding 25 dari 30 menit, data dan logika 45 dari 60, formulir 40 dari 60, simpan dan saldo 45 dari 45, rekap 40 dari 45, dan uji menyeluruh 42 dari 45 menit. Yang memakan waktu di luar rencana bukan menulis kode, tetapi urusan Git (push ditolak, konflik, repo salah folder) dan merapikan dokumen seperti log prompt dan bukti uji.
 
 6. Bagian mana dari kode yang masih belum kami pahami sepenuhnya? (Jawab dengan jujur.)
 
 **Jawaban (Rizky):** Saya paham cara kerja `hitungNilai`, tetapi bagian yang belum sepenuhnya saya pahami adalah cara Git menggabungkan perubahan saat dua orang mengedit file yang sama. Saya sempat menyelesaikan konflik di `08-penjelasan-kode.md` dengan cara yang membuang tulisan Fadil tanpa sadar, dan baru paham sebabnya setelah membandingkan riwayat commit.
 
 **Jawaban (Fadil):** Saya paham urutan pemeriksaan di `validasiBerat`, tetapi saya belum sepenuhnya paham pola `/^-?\d+(\.\d+)?$/` yang dipakai. Saya hanya tahu hasilnya dari mencoba nilai seperti `"1,234"`, `"-2"`, dan `"1.5.5"`, belum bisa menyusun pola serupa sendiri. Saya juga belum paham kenapa file CSV diberi tanda BOM di depan agar Excel membacanya benar.
+
+**Jawaban (Rofiqi):** Saya masih belum sepenuhnya paham `saringSetoran`, terutama bagian `some` dan `includes` yang mencocokkan kata di beberapa kolom sekaligus. Saya mengerti hasilnya, yaitu baris yang tampil harus cocok dengan kata dan jenis, tetapi belum bisa menjelaskan cara kerjanya baris demi baris tanpa melihat kode.
