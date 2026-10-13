@@ -20,7 +20,7 @@
 
 5. Bagaimana kami mengatur waktu? Langkah mana yang jauh lebih lama dari estimasi, dan kenapa?
 
-**Jawaban (Rofiqi):** Kami memecah pekerjaan menjadi tujuh langkah dengan estimasi di `02-rencana.md`, lalu mencatat waktu sebenarnya. Langkah kode selesai sesuai atau lebih cepat dari estimasi: scaffolding 25 dari 30 menit, data dan logika 45 dari 60, formulir 40 dari 60, simpan dan saldo 45 dari 45, rekap 40 dari 45, dan uji menyeluruh 42 dari 45 menit. Yang memakan waktu di luar rencana bukan menulis kode, tetapi urusan Git (push ditolak, konflik, repo salah folder) dan merapikan dokumen seperti log prompt dan bukti uji.
+**Jawaban (Rofiqi):** Kami memecah pekerjaan menjadi tujuh langkah dengan estimasi di `02-rencana.md`, lalu mencatat waktu sebenarnya. Langkah kode selesai sesuai atau lebih cepat dari estimasi: scaffolding 25 dari 30 menit, data dan logika 45 dari 60, formulir 40 dari 60, simpan dan saldo 45 dari 45, rekap 40 dari 45, dan uji menyeluruh 42 dari 45 menit. Yang memakan waktu di luar rencana bukan menulis kode, tetapi urusan Git (push ditolak, konflik, repo salah folder) dan merapikan dokumen seperti log prompt dan bukti uji. Di akhir pengerjaan laptop saya mati dan tidak bisa dinyalakan, sehingga bagian dokumen saya ditulis dan di-commit dari komputer Rizky. Kalau mengulang, pekerjaan akan saya kirim ke GitHub lebih sering supaya tidak bergantung pada satu laptop.
 
 6. Bagian mana dari kode yang masih belum kami pahami sepenuhnya? (Jawab dengan jujur.)
 
