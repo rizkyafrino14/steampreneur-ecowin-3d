@@ -29,8 +29,8 @@ Wajib ada:
 - minimal satu kasus **di batas aturan** (contoh: tepat Rp50.000 jika aturannya "minimal Rp50.000").
 
 ## Unit test otomatis (jika ada)
-Nama file test: `tes/logika.test.js` (dijalankan dengan `node --test tes/`)
-Jumlah test: 40 lulus dari 40
+Nama file test: `tes/logika.test.js` (dijalankan dengan `node --test tes/logika.test.js`)
+Jumlah test: Node v24.18.0, 40 lulus dari 40
 
 Cakupan: U01–U06 (hitung nilai), U07–U11 dan U13 (validasi berat), U12 (pilihan wajib). U14–U16 membutuhkan aplikasi dan diuji di browser.
 
@@ -59,4 +59,7 @@ Data uji (disimpan lebih dulu lewat formulir, dari localStorage yang kosong):
 | C08 | Unduh CSV tanpa saringan | Klik Unduh CSV | Baris nama kolom dan 4 baris data | Menampilkan baris nama dan 4 baris data | Ya | C08.png |
 | C09 | Unduh CSV mengikuti saringan | Lakukan C06, klik Unduh CSV | Baris nama kolom dan 1 baris data (S2) | Menampilkan baris data S2 | Ya | C09.png |
 | C10 | Format angka di CSV | Buka file CSV di Excel | Kolom terpisah, nilai `8750` (bukan `Rp8.750`), berat `2.5` | Menampilkan S2 | Ya | C10.png |
-| C11 | Kasus lama tidak rusak | Jalankan ulang U01 sampai U16 dan `node --test tes/` | Semua tetap lulus | Menampilkan data yang lulus | Ya |  |
+| C11 | Kasus lama tidak rusak | Jalankan ulang U01 sampai U16 dan `node --test tes/logika.test.js` | Semua tetap lulus | Menampilkan data yang lulus | Ya |  |
+
+
+Uji clone README pada komputer bersih (Windows, Node.js v24.18.0), 13 Okt 2026: clone berhasil, perintah node --test tes/logika.test.js menghasilkan 40 lulus dari 40. Perintah lama node --test tes/ gagal (MODULE_NOT_FOUND), sehingga README diperbaiki.
