@@ -38,7 +38,7 @@ Aturan:
 
 ### Penjelasan 4
 - **Ditulis oleh:** Muhammad Fadil Ismunawar
-- **File dan fungsi:** src/logika.js, fungsi validasiBerat (baris 20 sampai 56).
+- **File dan fungsi:** src/logika/test.js, fungsi validasiBerat (baris 20 sampai 56).
 - **Apa yang dilakukan:** Fungsi ini akan menerima teks dari kotak input berat lalu memeriksanya dalam empat tahap secara berurutan. Saat satu tahap gagal, fungsi akan langsung berhenti dan tahap berikutnya tidak dijalankan.
 Pemeriksaan 1: input undefined atau null diubah menjadi string kosong, lalu spasi di tepi dibuang dengan trim(). Kalau hasilnya kosong, pesannya “Berat wajib diisi”.
 Pemeriksaan 2: tanda koma diganti dengan tanda titik, lalu teks dicocokkan dengan pola /^-?\d+(\.\d+)?$/. Kalau tidak cocok, maka pesannya “Berat harus berupa angka”.
@@ -55,20 +55,20 @@ null dan undefined lebih dulu diubah jadi "", jadi tidak membuat error dan juga 
 "abc" ditolak di cek 2 dengan pesan “Berat harus berupa angka”. Hal yang sama berlaku untuk "1e2": walaupun Number("1e2") bernilai 100, pola hanya menerima digit, titik, dan minus.
 
 ### Penjelasan 5
-- *Ditulis oleh:* Muhammad Fadil Ismunawar
-- *File dan fungsi:* tes/logika.test.js, test U11 (baris 77 sampai 81)
-- *Apa yang dilakukan:* Test ini memanggil validasiBerat("1,234"), yaitu berat dengan 3 angka di belakang koma. Hasilnya diperiksa dua kali:
+- **Ditulis oleh:** Muhammad Fadil Ismunawar
+- **File dan fungsi:** tes/logika.test.js, test U11 (baris 77 sampai 81)
+- **Apa yang dilakukan:** Test ini memanggil validasiBerat("1,234"), yaitu berat dengan 3 angka di belakang koma. Hasilnya diperiksa dua kali:
 valid harus false, pesan harus cocok dengan pola /2 angka/.
 Artinya, test ini memastikan berat dengan lebih dari 2 desimal ditolak oleh aturan desimal, bukan oleh aturan lain.
-- *Kenapa dibuat seperti ini:* Kalau test hanya memeriksa valid: false, test bisa lulus walaupun penolakannya terjadi karena alasan yang salah. Misalnya:
+- **Kenapa dibuat seperti ini:** Kalau test hanya memeriksa valid: false, test bisa lulus walaupun penolakannya terjadi karena alasan yang salah. Misalnya:
 Jika koma tidak diubah ke titik, “1,234” ditolak di cek 2 dengan pesan “Berat harus berupa angka”. valid tetap false, tetapi aturan desimalnya sebenarnya tidak pernah dijalankan.
 Pemeriksaan pesan memastikan yang menolak benar-benar cek 3. Pesannya dicocokkan dengan pola /2 angka/, bukan dengan kalimat lengkap. Dengan begitu, kalau susunan kalimat sedikit diubah, test tidak ikut rusak, selama inti aturannya (2 angka) tetap disebut.
-- *Contoh:* Jika inputnya “1,234”, maka prosesnya:
+- **Contoh:** Jika inputnya “1,234”, maka prosesnya:
 Lolos cek 1, karena tidak kosong.
 Diubah jadi “1.234” dan lolos cek 2, karena bentuknya angka.
 Gagal di cek 3, karena bagian desimalnya “234” ada 3 digit.
 Hasilnya { valid: false, berat: null, pesan: "Berat maksimal 2 angka di belakang koma" }. Test lulus karena valid bernilai false dan pesannya mengandung “2 angka”.
-- *Jika input salah atau kosong:* Test ini akan gagal dalam beberapa kondisi:
+- **Jika input salah atau kosong:** Test ini akan gagal dalam beberapa kondisi:
 Cek 3 dihapus atau batasnya dilonggarkan (misalnya > 2 diubah jadi > 3): “1.234” lolos sampai cek 4. Karena 1,234 berada di antara 0,1 dan 100, hasilnya valid: true, sehingga pemeriksaan pertama gagal.
 Baris replace(",", ".") dihapus: “1,234” ditolak di cek 2. valid tetap false, tetapi pesannya “Berat harus berupa angka”, jadi pemeriksaan kedua gagal.
 Pesan cek 3 diganti sehingga tidak lagi memuat “2 angka”: pemeriksaan kedua gagal.
@@ -93,14 +93,31 @@ Kembalikan kodenya, jalankan lagi, dan pastikan semua test lulus.
 - **Contoh:** jika Bu Sari memilih Botol PET bening, kondisi Dipisah, berat `2,5`, lalu klik Simpan, setoran bernilai `11250` tersimpan dengan tanggal hari ini, tampil pesan "Setoran tersimpan. Nilai: Rp11.250", saldo Bu Sari jadi `Rp11.250`, dan isian jenis, kondisi, serta berat dikosongkan.
 - **Jika input salah atau kosong:** Kalau berat diisi `abc`, `validasiSetoran` mengembalikan `valid: false`, pesan "Berat harus berupa angka" tampil di bawah isian, dan handler berhenti sebelum menyentuh `localStorage`, jadi tidak ada yang tersimpan. Kalau penyimpanan gagal, tampil "Penyimpanan gagal. Data tidak tersimpan."
 
-Bagian B: Pertanyaan yang dijawab bersama
+## Bagian B: Pertanyaan yang dijawab bersama
 
 1. Jika aturan bisnis utama di spesifikasi berubah (tuliskan contoh perubahannya), file dan fungsi mana yang harus diubah? Jelaskan alasannya.
 
+**Jawaban (Rizky):** Saya ambil contoh perubahan pada: harga Kardus Kering naik dari Rp1.950 menjadi Rp2.100 per kg. Yang diubah hanya satu angka di `src/data.js`, pada baris ini `{ jenis: "Kardus", kondisi: "Kering", hargaPerKg: 1950 }` menjadi `2100`. Rumus di `hitungNilai` (`src/logika.js` pada baris 63 sampai 68) tidak perlu disentuh, karena fungsi itu hanya menerima harga yang dikirim `cariHarga`. Satu-satunya yang ikut berubah adalah test yang memakai angka 1950, yaitu U03 di `tes/logika.test.js` (hitungNilai(1950, 0.33) = 644), dan tabel harga di `docs/01-spesifikasi.md` bagian 6. Alasannya, harga sengaja dipisah dari rumus di `data.js`, karena harga bisa berubah mengikuti keputusan pengelola bank sampah, sedangkan cara menghitungnya tetap.
+
+Contoh lain: kalau batas berat maksimal naik dari 100 kg menjadi 200 kg, yang diubah hanya `validasiBerat` di `src/logika.js` (pengecekan `berat > 100` dan teks pesan "antara 0,1 dan 100 kg"), lalu test U06 dan U08 serta spesifikasi bagian 6. `app.js` tidak perlu diubah karena ia hanya memanggil `validasiSetoran` dan menampilkan pesannya.
+
 2. Bagaimana data mengalir dari saat pengguna mengisi form sampai hasilnya tampil di layar? Sebutkan file dan fungsi yang dilewati secara berurutan.
+
+**Jawaban (Rizky):** Alurnya dimulai dari formulir `index.html` (`form-setoran`). Saat Simpan diklik, handler klik `submit` di `src/app.js` lalu akan berjalan. Urutannya:
+
+1. `app.js` memanggil `validasiSetoran` di `src/logika.js`, yang dipanggil adalah `validasiBerat` untuk memeriksa berat.
+2. Kalau valid, `app.js` memanggil `cariNasabah`, lalu `cariHarga` di `logika.js` untuk mendapatkan harga per kg.
+3. `buatSetoran` di `logika.js` membuat catatan setoran dan memanggil `hitungNilai` untuk nilainya.
+4. `app.js` memanggil `muatSetoran` dan `simpanSetoran` di `src/penyimpanan.js`, yang menulis ke `localStorage` dengan kunci `ecowin_setoran`.
+5. `app.js` memanggil `perbaruiSaldo`, yang memakai `hitungSaldo` di `logika.js`, lalu saldo tampil di formulir.
+6. Di halaman rekap, `src/rekap.js` fungsi `tampilkan` memanggil `muatSetoran`, lalu `urutkanSetoran` dan `saringSetoran` di `logika.js`, dan hasilnya digambar menjadi baris tabel.
+
+Contohnya, Bu Sari memilih Botol PET bening, Dipisah, berat `2,5`: `hitungNilai(4500, 2.5)` menghasilkan `11250`, tersimpan di `localStorage`, saldo Bu Sari tampil `Rp11.250`, dan di rekap muncul satu baris dengan nilai `Rp11.250`.
 
 3. Pilih satu unit test. Apa yang diuji, dan dalam kondisi apa test itu akan gagal?
 
 4. Pilih satu saran AI yang kalian tolak. Apa sarannya dan kenapa kalian menolaknya?
 
 5. Bagian kode mana yang paling sulit dipahami, dan bagaimana kalian akhirnya memahaminya?
+
+**Jawaban (Rizky):** Bagian yang paling sulit saya pahami adalah pembulatan di fungsi `hitungNilai` (`src/logika.js` baris 63 sampai 68). Awalnya saya bingung kenapa memakai `+ 50` dan bukan langsung `Math.round(harga * berat)`, apalagi test U03 (`hitungNilai(1950, 0.33)` harus 644). Saya akhirnya paham setelah menghitung sendiri menggunakan kalkulator, langkah demi langkah dengan angka itu: berat 0,33 dikali 100 jadi 33, dikali 1950 jadi 64350, ditambah 50 jadi 64400, lalu dibagi 100 jadi 644. Saya juga melihat bahwa test U03 dan U04 sengaja diuji dengan mengubah `+ 50` menjadi `+ 0`, dan hasilnya jadi 643 dan 247 sehingga kedua test gagal. Sekarang saya bisa menjelaskan bahwa `+ 50` membuat pecahan 0,5 ke atas dibulatkan naik memakai bilangan bulat, sehingga aturan spesifikasi terpenuhi dan hasilnya tidak bergantung pada pecahan desimal komputer.
