@@ -98,9 +98,9 @@
   function unduhCsv() {
     if (barisTampil.length === 0) return;
 
-    // BOM (﻿) di awal membuat Excel membaca file sebagai UTF-8,
+    // BOM (U+FEFF) di awal membuat Excel membaca file sebagai UTF-8,
     // bukan menampilkan karakter non-ASCII menjadi rusak.
-    var isi = "﻿" + buatCsv(barisTampil);
+    var isi = "\uFEFF" + buatCsv(barisTampil);
     var berkas = new Blob([isi], { type: "text/csv;charset=utf-8" });
     var alamat = URL.createObjectURL(berkas);
 
@@ -111,10 +111,12 @@
     tautan.click();
     document.body.removeChild(tautan);
 
-    // Alamat sementara dilepas agar tidak menahan memori.
+    // Alamat sementara dilepas agar tidak menahan memori. Diberi jeda 1 detik
+    // karena sebagian peramban belum selesai memulai unduhan bila alamat
+    // langsung dicabut.
     setTimeout(function () {
       URL.revokeObjectURL(alamat);
-    }, 0);
+    }, 1000);
   }
 
   if (kotakCari) kotakCari.addEventListener("input", tampilkan);
