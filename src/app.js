@@ -183,6 +183,17 @@
     // dan hitungSaldo membandingkan dengan ===. Karena itu id dicari lewat Number.
     var nasabah = cariNasabah(pilihNasabah.value);
     var harga = cariHarga(HARGA, pilihJenis.value, pilihKondisi.value);
+
+    // Pilihan formulir bisa tidak ada di data bila opsi HTML diubah. Tanpa
+    // pemeriksaan ini, setoran bernilai 0 dan tanpa nasabah akan tersimpan.
+    if (nasabah === null || harga === null) {
+      tampilkanGalat({
+        nasabah: nasabah === null ? "Nasabah tidak dikenal" : "",
+        jenis: harga === null ? "Harga untuk jenis dan kondisi ini tidak ditemukan" : "",
+      });
+      return;
+    }
+
     var setoran = buatSetoran(
       nasabah,
       pilihJenis.value,
