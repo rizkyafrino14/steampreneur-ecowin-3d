@@ -46,7 +46,7 @@ S1 Bu Sari, Botol PET bening, Dipisah, 2,5 kg = Rp11.250; S2 Bu Sari, Botol PET 
 | C11 | Jalankan ulang U01 sampai U16 dan `node --test tes/` | Semua kasus uji lama dan semua test lama tetap lulus |
 
 ## 3. Setelah selesai
-- [ ] Kasus uji lama tetap lulus
-- [ ] Kasus uji baru lulus
-- [ ] Spesifikasi diperbarui
-- [ ] README diperbarui
+- [x] Kasus uji lama tetap lulus
+- [x] Kasus uji baru lulus
+- [x] Spesifikasi diperbarui
+- [x] README diperbarui
