@@ -30,7 +30,7 @@ Wajib ada:
 
 ## Unit test otomatis (jika ada)
 Nama file test: `tes/logika.test.js` (dijalankan dengan `node --test tes/logika.test.js`)
-Jumlah test: Node v24.18.0, 40 lulus dari 40
+Jumlah test: 43 lulus dari 43 (40 test awal ditambah 3 test pencegahan formula injection pada CSV)
 
 Cakupan: U01–U06 (hitung nilai), U07–U11 dan U13 (validasi berat), U12 (pilihan wajib). U14–U16 membutuhkan aplikasi dan diuji di browser.
 
