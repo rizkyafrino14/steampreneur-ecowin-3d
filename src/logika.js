@@ -175,8 +175,13 @@ function saringSetoran(daftarSetoran, opsi) {
 
 // Membungkus satu field CSV dengan tanda kutip ganda jika perlu.
 // Tanpa ini, nama seperti `Bu "Sari", RT 1` akan menggeser kolom di Excel.
+// Field yang diawali =, +, -, @, tab, atau CR juga diberi tanda kutip tunggal di
+// depan agar Excel membacanya sebagai teks, bukan rumus (CSV formula injection).
 function kutipFieldCsv(nilai) {
-  const teks = String(nilai === undefined || nilai === null ? "" : nilai);
+  let teks = String(nilai === undefined || nilai === null ? "" : nilai);
+  if (/^[=+@\-\t\r]/.test(teks)) {
+    teks = "'" + teks;
+  }
   if (/[",\r\n]/.test(teks)) {
     return '"' + teks.replace(/"/g, '""') + '"';
   }

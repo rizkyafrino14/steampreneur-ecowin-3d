@@ -303,3 +303,25 @@ test("buatCsv: nilai tanpa 'Rp' dan tanpa titik ribuan", () => {
   assert.ok(baris.endsWith(",11250"));
   assert.ok(!baris.includes("11.250"));
 });
+
+// ---- buatCsv: pencegahan formula injection ----
+
+test("buatCsv: field diawali rumus diberi tanda kutip tunggal di depan", () => {
+  const rumus = { ...S2, nasabah: "=1+1" };
+  const baris = buatCsv([rumus]).split("\r\n")[1];
+  assert.ok(baris.includes(",'=1+1,"));
+});
+
+test("buatCsv: awalan +, -, dan @ juga dicegah", () => {
+  for (const awal of ["+", "-", "@"]) {
+    const khusus = { ...S2, nasabah: awal + "x" };
+    const baris = buatCsv([khusus]).split("\r\n")[1];
+    assert.ok(baris.includes(",'" + awal + "x,"), "awalan " + awal);
+  }
+});
+
+test("buatCsv: nama biasa tidak diberi tanda kutip tunggal", () => {
+  const baris = buatCsv([S2]).split("\r\n")[1];
+  assert.ok(baris.includes(",Bu Sari,"));
+  assert.ok(!baris.includes("'"));
+});
