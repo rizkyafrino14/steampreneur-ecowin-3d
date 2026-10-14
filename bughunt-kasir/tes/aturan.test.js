@@ -60,3 +60,10 @@ test("Bug 5: diskon tidak digabung, member hanya 10% dan bukan member 5%", () =>
 test("Bug 5: diskon member dibulatkan ke rupiah terdekat, 100,5 menjadi 101", () => {
   assert.strictEqual(kasir.hitungDiskon(1005, true), 101);
 });
+
+test("Bug 6: PPN dibulatkan ke rupiah terdekat, 0,5 ke atas naik", () => {
+  assert.strictEqual(kasir.hitungPPN(45), 5); // 4,95
+  assert.strictEqual(kasir.hitungPPN(4550), 501); // 500,5
+  assert.strictEqual(kasir.hitungPPN(904), 99); // 99,44 tetap 99
+  assert.strictEqual(kasir.hitungPPN(95000), 10450);
+});
