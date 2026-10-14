@@ -44,3 +44,8 @@ test("Bug 3: total jumlah satu produk tidak boleh lebih dari 99 dan keranjang ti
   kasir.tambahItem(keranjang, "K04", 39);
   assert.strictEqual(keranjang[0].qty, 99);
 });
+
+test("Bug 4: bukan member dengan subtotal tepat Rp100.000 mendapat diskon 5%, Rp99.999 tidak", () => {
+  assert.strictEqual(kasir.hitungDiskon(100000, false), 5000);
+  assert.strictEqual(kasir.hitungDiskon(99999, false), 0);
+});
