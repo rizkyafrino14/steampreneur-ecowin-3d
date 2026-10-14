@@ -57,24 +57,25 @@ Pengujian tersimpan di file `tes/aturan.test.js` dan dijalankan menggunakan peri
 - **Ditemukan oleh:** bersama (AI membaca kode, dibuktikan dengan test)
 
 ## Bug 6
-- **Gejala:** Perhitungan PPN dari nilai 45 menampilkan angka 4 (padahal 4,95 seharusnya dibulatkan naik ke 5). PPN 500,5 juga tercetak 500, bukannya 501.
+- **Gejala:** Perhitungan PPN dari nilai 4,95 menampilkan angka 4 (padahal 4,95 seharusnya dibulatkan naik ke 5). PPN 500,5 juga tercetak 500, bukannya 501.
 - **Langkah untuk memunculkan bug:** Lakukan transaksi yang menghasilkan PPN berdesimal, lalu cermati nilai PPN pada ringkasan.
 - **Aturan bisnis yang dilanggar:** Aturan 5.
-- **Penyebab:** Berada di `kasir.js` pada fungsi `hitungPPN`. Penggunaan `Math.floor` otomatis memangkas seluruh pecahan ke bawah.
+- **Penyebab:** Berada di berkas `kasir.js` pada fungsi `hitungPPN`. Penggunaan `Math.floor` secara otomatis memangkas seluruh pecahan ke bawah.
 - **Perbaikan:** Mengganti fungsi pembulatan menjadi `Math.round` (pembulatan ke nilai terdekat, pecahan 0,5 ke atas dibulatkan naik).
 - **Test yang membuktikan:** `Bug 6: PPN dibulatkan ke rupiah terdekat, 0,5 ke atas naik`
 - **Commit perbaikan:** `perbaikan: PPN dibulatkan ke bawah sehingga 4,95 menjadi 4 dan 500,5 menjadi 500`
-- **Ditemukan oleh:** bersama (AI membaca kode, dibuktikan dengan test)
+- **Ditemukan oleh:** Bersama (AI membaca kode, dibuktikan dengan test)
 
 ## Bug 7
 - **Gejala:** Nominal pembayaran yang kurang dari total belanja tetap lolos dengan status "Pembayaran berhasil" dan kembalian bernilai negatif.
-- **Langkah untuk memunculkan bug:** Masukkan produk ke keranjang, isikan nominal bayar lebih kecil dari total, lalu klik Bayar.
+- **Langkah untuk memunculkan bug:** Masukkan produk ke keranjang, isikan nominal bayar yang lebih kecil dari total, lalu klik Bayar.
 - **Aturan bisnis yang dilanggar:** Aturan 7.
-- **Penyebab:** Berada di `kasir.js` pada fungsi `hitungKembalian`. Fungsi langsung menghitung `bayar - total` tanpa memeriksa kecukupan uang tunai.
-- **Perbaikan:** Menambahkan pemeriksaan `bayar < total` yang melempar `Error("Uang pembayaran kurang")`. Pesan kesalahan ini sudah ditampilkan oleh `app.js`, sehingga berkas `app.js` tidak diubah.
+- **Penyebab:** Berada di berkas `kasir.js` pada fungsi `hitungKembalian`. Fungsi langsung menghitung `bayar - total` tanpa memeriksa kecukupan uang tunai.
+- **Perbaikan:** Menambahkan pemeriksaan `bayar < total` yang melempar `Error("Uang pembayaran kurang")`. Pesan kesalahan ini sudah ditampilkan oleh `app.js`, sehingga berkas `app.js` tidak perlu diubah.
 - **Test yang membuktikan:** `Bug 7: uang pembayaran kurang ditolak, pas menghasilkan kembalian 0, lebih menghasilkan selisih`
 - **Commit perbaikan:** `perbaikan: uang pembayaran kurang dari total tidak ditolak dan kembalian bernilai negatif`
-- **Ditemukan oleh:** bersama (AI membaca kode, dibuktikan dengan test)
+- **Ditemukan oleh:** Bersama (AI membaca kode, dibuktikan dengan test)
+
 
 ## Bagian yang diperiksa dan sengaja tidak diubah
 
