@@ -98,7 +98,11 @@ function hitungRingkasan(keranjang, member) {
   return { subtotal, diskon, ppn, total };
 }
 
+// Aturan 7: jika uang yang dibayar kurang dari total, transaksi ditolak.
 function hitungKembalian(total, bayar) {
+  if (bayar < total) {
+    throw new Error("Uang pembayaran kurang");
+  }
   return bayar - total;
 }
 

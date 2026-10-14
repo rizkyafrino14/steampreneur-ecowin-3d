@@ -67,3 +67,9 @@ test("Bug 6: PPN dibulatkan ke rupiah terdekat, 0,5 ke atas naik", () => {
   assert.strictEqual(kasir.hitungPPN(904), 99); // 99,44 tetap 99
   assert.strictEqual(kasir.hitungPPN(95000), 10450);
 });
+
+test("Bug 7: uang pembayaran kurang ditolak, pas menghasilkan kembalian 0, lebih menghasilkan selisih", () => {
+  assert.throws(() => kasir.hitungKembalian(49950, 49949), /Uang pembayaran kurang/);
+  assert.strictEqual(kasir.hitungKembalian(49950, 49950), 0);
+  assert.strictEqual(kasir.hitungKembalian(49950, 50000), 50);
+});
