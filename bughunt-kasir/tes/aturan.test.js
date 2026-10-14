@@ -17,3 +17,21 @@ test("Bug 1: jumlah dari formulir (teks) dijumlahkan sebagai angka, Es Teh 2 dit
   assert.strictEqual(keranjang.length, 1);
   assert.strictEqual(keranjang[0].qty, 5);
 });
+
+test("Bug 2: jumlah selain bilangan bulat 1 sampai 99 ditolak dengan pesan", () => {
+  for (const salah of [0, -1, 1.5, "", "abc", "0", "-3", "2.5", 100, 101]) {
+    assert.throws(
+      () => kasir.tambahItem([], "K04", salah),
+      /Jumlah harus bilangan bulat/,
+      "harus ditolak: " + JSON.stringify(salah)
+    );
+  }
+});
+
+test("Bug 2: jumlah 1 dan 99 (angka maupun teks) diterima", () => {
+  for (const benar of [1, 99, "1", "99", "50"]) {
+    const keranjang = [];
+    kasir.tambahItem(keranjang, "K04", benar);
+    assert.strictEqual(keranjang[0].qty, Number(benar));
+  }
+});

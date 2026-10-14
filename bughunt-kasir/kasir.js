@@ -32,6 +32,12 @@ function tambahItem(keranjang, kode, qty) {
   // diubah ke angka dulu. Tanpa ini, "2" + "3" menjadi "23", bukan 5.
   const jumlah = Number(qty);
 
+  // Aturan 1: bilangan bulat 1 sampai 99. Kosong, nol, negatif, pecahan, dan
+  // teks bukan angka (hasil Number: 0 atau NaN) harus ditolak.
+  if (!Number.isInteger(jumlah) || jumlah < 1 || jumlah > 99) {
+    throw new Error("Jumlah harus bilangan bulat dari 1 sampai 99");
+  }
+
   const itemLama = keranjang.find((i) => i.kode === kode);
   if (itemLama) {
     itemLama.qty += jumlah;
