@@ -14,19 +14,19 @@ Aturan:
 
 ### Penjelasan 1
 - **Ditulis oleh:** Rofiqi Adyata Faizin
-- **File dan fungsi:** 'src/logika.js',fungsi 'hitungSaldo' (baris ke 96 sampai 104)
-- **Apa yang dilakukan:** Pada fungsi ini mengambil dan menerima daftar setoran id nasabah pada bank sampah ecowin. Yang menjumlahkan kolom baris nilai dari setoran yang nasabahId-nya sama dengan id tersebut lalu mengembalikan dan mengambil total transaksi sebagai saldo
-- **Kenapa dibuat seperti ini:** Agar saldo tidak disimpan sendiri di localStorage tetapi dihitung dari seluruh daftar setoran yang dibutuhkan. Jadi saldo tidak bisa berbeda dari isi rekap. Apabila saldo disimpan terpisah, bisa saja angkanya lupa diperbarui dan fungsinya tidak dapat mengambl isi halaman web sehingga dites dengan "node --test"
-- **Contoh:** jika inputnya berisi 2 setoran Bu Sari (nasabahId: 1), hasilnya bernilai 11250 dan 8750 ketika dijumlahkan menghasilkan 20000, karena setoran memiliki id yang sama ketika dijumlahkan .
-- **Jika input salah atau kosong:** Jika daftar kosong, hasilnya 0. Dan jika id nasabah tidak ada di daftar maka hasilnya juga 0. 
+- **File dan fungsi:** `src/logika.js`, fungsi `validasiSetoran` (baris 73 sampai 90)
+- **Apa yang dilakukan:** Fungsi ini memeriksa isian formulir setoran sebelum disimpan. Ia menerima empat isian: nasabah, jenis, kondisi, dan berat. Hasilnya berupa `valid` (true atau false) dan satu pesan untuk tiap isian. Isian yang kosong diberi pesan "wajib dipilih", sedangkan berat diperiksa lewat fungsi `validasiBerat`.
+- **Kenapa dibuat seperti ini:** Pesan dibuat terpisah per isian, bukan satu pesan umum, supaya di layar pesannya muncul tepat di bawah kotak yang salah. Fungsi ini juga tidak menyentuh halaman web, jadi bisa dites langsung dengan `node --test`. Berat diserahkan ke `validasiBerat` agar aturan berat tidak ditulis dua kali.
+- **Contoh:** jika nasabah belum dipilih, jenis "Kardus", kondisi "Kering", berat "2,5", hasilnya `valid: false` dan `pesan.nasabah` berisi "Nasabah wajib dipilih", sedangkan pesan jenis, kondisi, dan berat kosong karena isiannya benar.
+- **Jika input salah atau kosong:** Kalau semua isian kosong, keempat pesan terisi dan `valid` bernilai false. Kalau fungsi dipanggil tanpa data sama sekali, tidak error, tetapi semua isian dianggap kosong (ada pengecekan `!data`). Kasus ini diuji oleh test `U12` di `tes/logika.test.js`.
 
 ### Penjelasan 2
 - **Ditulis oleh:** Rofiqi Adyata Faizin
-- **File dan fungsi:** 'src/logika.js', memiliki fungsi "cari harga" (baris ke 8 sampai 15).
-- **Apa yang dilakukan:** Pada fungsi ini memiliki fungsi untuk menerima dan mengambil data daftar harga, nama jenis, nama kondisi, dengan cara memeriksa daftar 1 per 1 dan mengembalikan "harga/kg" jika data tidak cocok maka mengembalikan nilai null.
-- **Kenapa dibuat seperti ini:** Karena harga ditentukan oleh kondisi dan jenis, contoh botol PET bening yang dipisah dan yang utuh harganya berbeda. Ketika data tidak ditemukan mengembalikan nilai null dan bukan 0 hal ini dibuat agar membedakan "kombinasi tidak ada" dari harga 0
-- **Contoh:** Jika input "cari harga (harga botol PET bening yang dipisah)" hasilnya 4500 karena masing-masing data harga ada ditabel.
-- **Jika input salah atau kosong:** Maka akan menghasilkan nilai null, dalam kondisi ini baris tidak diketahui dan dikenal oleh "test/logika.test.js".
+- **File dan fungsi:** `src/logika.js`, fungsi `saringSetoran` (baris 155 sampai 174)
+- **Apa yang dilakukan:** Fungsi ini menyaring daftar setoran di halaman rekap. Ia menerima daftar setoran dan dua pilihan: kata pencarian dan jenis sampah. Setoran yang ditampilkan hanya yang memenuhi keduanya. Kata dicari di kolom nasabah, jenis, kondisi, dan kategori, tanpa membedakan huruf besar dan kecil.
+- **Kenapa dibuat seperti ini:** Jenis dicocokkan persis karena nilainya dari pilihan tetap di dropdown, sedangkan kata dicocokkan sebagai potongan teks karena petugas bisa mengetik sebagian nama. Berat dan nilai sengaja tidak ikut dicari karena angkanya mudah kebetulan cocok dengan kata lain. Hasilnya berupa daftar baru, jadi daftar aslinya tidak berubah dan tetap bisa dipakai untuk tabel dan unduhan CSV.
+- **Contoh:** dari empat setoran (dua milik Bu Sari, satu Pak Budi, satu Bu Ani), kata "sari" menghasilkan dua baris milik Bu Sari. Kata "utuh" dengan jenis "Botol PET bening" menghasilkan satu baris, yaitu setoran Bu Sari kondisi Utuh.
+- **Jika input salah atau kosong:** Kalau kata kosong, yang berlaku hanya filter jenis. Kalau jenis kosong, yang berlaku hanya kata. Kalau keduanya kosong, semua setoran dikembalikan (berupa salinan). Kalau tidak ada yang cocok, hasilnya daftar kosong dan di halaman tampil "Data tidak ditemukan". Kasus ini diuji oleh delapan test `saringSetoran` di `tes/logika.test.js`.
 
 ### Penjelasan 3
 - **Ditulis oleh:** Muhammad Fadil Ismunawar
