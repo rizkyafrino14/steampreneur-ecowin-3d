@@ -28,15 +28,19 @@ function tambahItem(keranjang, kode, qty) {
     throw new Error("Produk tidak ditemukan");
   }
 
+  // Nilai dari kotak isian di halaman selalu berupa teks ("2"), sehingga harus
+  // diubah ke angka dulu. Tanpa ini, "2" + "3" menjadi "23", bukan 5.
+  const jumlah = Number(qty);
+
   const itemLama = keranjang.find((i) => i.kode === kode);
   if (itemLama) {
-    itemLama.qty += qty;
+    itemLama.qty += jumlah;
   } else {
     keranjang.push({
       kode: produk.kode,
       nama: produk.nama,
       harga: produk.harga,
-      qty: qty,
+      qty: jumlah,
     });
   }
   return keranjang;
