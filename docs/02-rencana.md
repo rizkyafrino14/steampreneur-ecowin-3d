@@ -20,6 +20,6 @@ Peran: Rizky Mustafa Afrino (navigator utama), Muhammad Fadil Ismunawar (penguji
 | 5 | Halaman rekap: tabel setoran dengan kolom tanggal, nasabah, kategori, jenis, kondisi, berat, nilai | Rizky | Kasus U16 lulus; dilanjutkan commit `checkpoint: versi pertama alur inti berjalan` | 45 menit | 40 menit | selesai |
 | 6 | Uji menyeluruh dan catat kesalahan AI: jalankan U01–U16, isi bagian B kasus uji, tangkapan layar di `docs/bukti/` | Fadil | Semua kasus uji terisi hasil sebenarnya, Lulus?, dan bukti; `05-kesalahan-ai.md` terisi | 45 menit | 42 menit | Selesai |
 | 7 | Review dan pahami kode: code review AI, putuskan saran diterima atau ditolak, tulis penjelasan kode masing-masing anggota | Rofiqi (catatan review), semua anggota (penjelasan kode) | `06-catatan-review.md` terisi; tiap anggota punya minimal 2 penjelasan di `08-penjelasan-kode.md` | 60 menit | 60 menit | Selesai |
-| 8 | Bug Hunt | Semua anggota | Catatan bug dan test selesai | 60 menit | | Belum |
+| 8 | Bug Hunt | Semua anggota | Catatan bug dan test selesai | 60 menit | 3 menit | selesai |
 | 9 | Change request | Rizky (kode), Fadil (kasus uji), Rofiqi (analisis dan dokumen) | Semua kasus uji lama dan baru lulus | 90 menit | 75 menit | selesai |
 | 10 | Dokumentasi dan refleksi | Rofiqi (README), semua anggota (refleksi) | README bisa diikuti orang lain | 90 menit | 85 menit | selesai |
