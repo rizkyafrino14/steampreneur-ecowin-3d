@@ -40,6 +40,11 @@ function tambahItem(keranjang, kode, qty) {
 
   const itemLama = keranjang.find((i) => i.kode === kode);
   if (itemLama) {
+    // Aturan 2: setelah dijumlahkan, jumlah per produk tetap maksimal 99.
+    // Diperiksa sebelum diubah supaya keranjang tidak berubah saat ditolak.
+    if (itemLama.qty + jumlah > 99) {
+      throw new Error("Total jumlah per produk tidak boleh lebih dari 99");
+    }
     itemLama.qty += jumlah;
   } else {
     keranjang.push({

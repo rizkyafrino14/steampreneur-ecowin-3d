@@ -35,3 +35,12 @@ test("Bug 2: jumlah 1 dan 99 (angka maupun teks) diterima", () => {
     assert.strictEqual(keranjang[0].qty, Number(benar));
   }
 });
+
+test("Bug 3: total jumlah satu produk tidak boleh lebih dari 99 dan keranjang tidak berubah saat ditolak", () => {
+  const keranjang = [];
+  kasir.tambahItem(keranjang, "K04", 60);
+  assert.throws(() => kasir.tambahItem(keranjang, "K04", 40), /99/);
+  assert.strictEqual(keranjang[0].qty, 60);
+  kasir.tambahItem(keranjang, "K04", 39);
+  assert.strictEqual(keranjang[0].qty, 99);
+});
