@@ -64,4 +64,4 @@ Data uji (disimpan lebih dulu lewat formulir, dari localStorage yang kosong):
 
 Uji clone README pada komputer bersih (Windows, Node.js v24.18.0), 13 Okt 2026: clone berhasil, perintah node --test tes/logika.test.js menghasilkan 40 lulus dari 40. Perintah lama node --test tes/ gagal (MODULE_NOT_FOUND), sehingga README diperbaiki.
 
-Pengujian ulang setelah perubahan hasil review kode (13 Okt 2026): U01 sampai U15 dan C01 sampai C10 dijalankan ulang di browser dan sesuai hasil yang diharapkan, dengan data uji S1 sampai S4. node --test tes/logika.test.js: 43 lulus dari 43. Pembukaan CSV langsung di Excel belum diulang setelah perubahan.
+Pengujian ulang setelah perubahan hasil review kode (13 Okt 2026): U01 sampai U15 dan C01 sampai C10 dijalankan ulang di browser dan sesuai hasil yang diharapkan, dengan data uji S1 sampai S4. node --test tes/logika.test.js: 43 lulus dari 43. Pembukaan CSV langsung di Excel sudah diulang pada 14 Okt 2026 oleh Fadil: 7 kolom terpisah dan nilai tanpa Rp (bukti: docs/bukti/C10-ulang.png).
