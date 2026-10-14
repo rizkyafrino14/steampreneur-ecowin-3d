@@ -73,3 +73,39 @@ test("Bug 7: uang pembayaran kurang ditolak, pas menghasilkan kembalian 0, lebih
   assert.strictEqual(kasir.hitungKembalian(49950, 49950), 0);
   assert.strictEqual(kasir.hitungKembalian(49950, 50000), 50);
 });
+
+// ---- Ringkasan end-to-end: subtotal, diskon, PPN, dan total dihitung manual ----
+
+test("Ringkasan: bukan member subtotal Rp100.000 -> diskon 5.000, PPN 10.450, total 105.450", () => {
+  const keranjang = [];
+  kasir.tambahItem(keranjang, "K04", 25); // 25 x 4.000
+  assert.deepStrictEqual(kasir.hitungRingkasan(keranjang, false), {
+    subtotal: 100000,
+    diskon: 5000,
+    ppn: 10450,
+    total: 105450,
+  });
+});
+
+test("Ringkasan: member subtotal Rp50.000 -> diskon 5.000, PPN 4.950, total 49.950", () => {
+  const keranjang = [];
+  kasir.tambahItem(keranjang, "K01", 2); // 2 x 15.000
+  kasir.tambahItem(keranjang, "K04", 5); // 5 x 4.000
+  assert.deepStrictEqual(kasir.hitungRingkasan(keranjang, true), {
+    subtotal: 50000,
+    diskon: 5000,
+    ppn: 4950,
+    total: 49950,
+  });
+});
+
+test("Ringkasan: member subtotal Rp120.000 -> diskon 12.000, PPN 11.880, total 119.880", () => {
+  const keranjang = [];
+  kasir.tambahItem(keranjang, "K01", 8); // 8 x 15.000
+  assert.deepStrictEqual(kasir.hitungRingkasan(keranjang, true), {
+    subtotal: 120000,
+    diskon: 12000,
+    ppn: 11880,
+    total: 119880,
+  });
+});
