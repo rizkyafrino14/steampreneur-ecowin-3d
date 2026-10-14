@@ -37,25 +37,23 @@ Pengujian tersimpan di file `tes/aturan.test.js` dan dijalankan menggunakan peri
 - **Ditemukan oleh:** bersama (AI membaca kode, dibuktikan dengan test)
 
 ## Bug 4
-- **Gejala:** Pelanggan non-member yang berbelanja persis Rp100.000 tidak memperoleh potongan harga 5%.
-- **Langkah untuk memunculkan bug:** Masukkan Es Teh sebanyak 25 (25 x Rp4.000), biarkan opsi member tidak dicentang. Hasil diskon tercatat Rp0.
+- **Gejala:** Pembeli yang bukan member dan belanja tepat Rp100.000 tidak mendapat diskon 5%, padahal seharusnya dapat.
+- **Langkah untuk memunculkan bug:** Masukkan 25 Es Teh (25 × Rp4.000 = Rp100.000) dan jangan centang pilihan member. Diskon yang muncul Rp0.
 - **Aturan bisnis yang dilanggar:** Aturan 4.
-- **Penyebab:** Berada di `kasir.js` pada fungsi `hitungDiskon`. Logika pengecekan menggunakan pembanding `subtotal > 100000`, padahal ketentuannya mencakup nilai minimal (sama dengan) Rp100.000.
-- **Perbaikan:** Mengubah ekspresi pembanding menjadi `subtotal >= 100000`.
+- **Penyebab:** Ada di fungsi `hitungDiskon` dalam file `kasir.js`. Kodenya memakai `subtotal > 100000`, yang artinya "lebih dari Rp100.000". Akibatnya, belanja tepat Rp100.000 tidak dihitung, padahal aturannya "minimal Rp100.000", yang berarti Rp100.000 juga harus dapat diskon.
+- **Perbaikan:** Tanda `>` diganti menjadi `>=`, sehingga kodenya menjadi `subtotal >= 100000` dan belanja tepat Rp100.000 ikut mendapat diskon.
 - **Test yang membuktikan:** `Bug 4: bukan member dengan subtotal tepat Rp100.000 mendapat diskon 5%, Rp99.999 tidak`
 - **Commit perbaikan:** `perbaikan: subtotal tepat Rp100.000 tidak mendapat diskon 5% karena batas memakai lebih dari, bukan minimal`
-- **Ditemukan oleh:** bersama (AI membaca kode, dibuktikan dengan test)
-
+- **Ditemukan oleh:** Bersama. AI membaca kodenya, lalu kami membuktikannya dengan test.
 ## Bug 5
-- **Gejala:** Pelanggan member yang berbelanja Rp120.000 mendapatkan diskon Rp18.000 (15%), bukannya Rp12.000 (10%).
-- **Langkah untuk memunculkan bug:** Masukkan Nasi Goreng sebanyak 8 (8 x Rp15.000), lalu beri tanda centang pada status member.
+- **Gejala:** Member yang belanja Rp120.000 mendapat diskon Rp18.000 (15%), padahal seharusnya hanya Rp12.000 (10%).
+- **Langkah untuk memunculkan bug:** Masukkan 8 Nasi Goreng (8 × Rp15.000 = Rp120.000), lalu centang pilihan member. Diskon yang muncul Rp18.000.
 - **Aturan bisnis yang dilanggar:** Aturan 4 (diskon tidak boleh digabung).
-- **Penyebab:** Berada di `kasir.js` pada fungsi `hitungDiskon`. Dua blok `if` yang berdiri sendiri membuat diskon 5% dan 10% terjumlah bersamaan untuk member.
-- **Perbaikan:** Mengubah percabangan menjadi `if (member) ... else if (subtotal >= 100000)` sehingga hanya satu jenis diskon yang berlaku.
+- **Penyebab:** Ada di fungsi `hitungDiskon` dalam file `kasir.js`. Pengecekan diskon 5% dan diskon member 10% ditulis dalam dua `if` yang terpisah. Akibatnya, member yang belanja minimal Rp100.000 lolos di kedua pengecekan dan mendapat dua diskon sekaligus (5% + 10% = 15%).
+- **Perbaikan:** Kedua pengecekan disambung menjadi `if (member) ... else if (subtotal >= 100000)`. Sekarang hanya satu diskon yang berlaku: member mendapat 10%, sedangkan bukan member yang belanja minimal Rp100.000 mendapat 5%.
 - **Test yang membuktikan:** `Bug 5: diskon tidak digabung, member hanya 10% dan bukan member 5%`
 - **Commit perbaikan:** `perbaikan: diskon belanja 5% dan diskon member 10% digabung sehingga member dengan subtotal besar dapat 15%`
-- **Ditemukan oleh:** bersama (AI membaca kode, dibuktikan dengan test)
-
+- **Ditemukan oleh:** Bersama. AI membaca kodenya, lalu kami membuktikannya dengan test.
 ## Bug 6
 - **Gejala:** Perhitungan PPN dari nilai 4,95 menampilkan angka 4 (padahal 4,95 seharusnya dibulatkan naik ke 5). PPN 500,5 juga tercetak 500, bukannya 501.
 - **Langkah untuk memunculkan bug:** Lakukan transaksi yang menghasilkan PPN berdesimal, lalu cermati nilai PPN pada ringkasan.
