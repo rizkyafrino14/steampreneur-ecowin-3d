@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kasir Kantin STEAM</title>
+  <style>
+    :root {
+      --biru: #1f4e79;
+      --abu: #f3f5f8;
+      --garis: #d5dbe3;
+      --merah: #b42318;
+      --hijau: #1a7f37;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: var(--abu);
+      color: #1d2733;
+    }
+    header {
+      background: var(--biru);
+      color: white;
+      padding: 16px 24px;
+    }
+    header h1 { margin: 0; font-size: 22px; }
+    header p { margin: 4px 0 0; opacity: 0.85; font-size: 14px; }
+    main {
+      max-width: 900px;
+      margin: 24px auto;
+      padding: 0 16px;
+      display: grid;
+      gap: 16px;
+    }
+    section {
+      background: white;
+      border: 1px solid var(--garis);
+      border-radius: 8px;
+      padding: 16px 20px;
+    }
+    h2 { margin: 0 0 12px; font-size: 17px; color: var(--biru); }
+    form, .baris-bayar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: flex-end;
+    }
+    label { display: flex; flex-direction: column; font-size: 13px; gap: 4px; }
+    select, input[type=number] {
+      padding: 8px;
+      font-size: 15px;
+      border: 1px solid var(--garis);
+      border-radius: 6px;
+      min-width: 120px;
+    }
+    button {
+      padding: 9px 16px;
+      font-size: 15px;
+      border: none;
+      border-radius: 6px;
+      background: var(--biru);
+      color: white;
+      cursor: pointer;
+    }
+    button.sekunder { background: #6b7785; }
+    button.hapus { background: transparent; color: var(--merah); padding: 4px 8px; font-size: 13px; }
+    table { width: 100%; border-collapse: collapse; font-size: 15px; }
+    th, td { padding: 8px; border-bottom: 1px solid var(--garis); text-align: left; }
+    th { background: var(--abu); font-size: 13px; }
+    .angka { text-align: right; }
+    .kosong { text-align: center; color: #6b7785; }
+    .ringkasan { width: 100%; max-width: 360px; margin-left: auto; }
+    .ringkasan td:last-child { text-align: right; }
+    .ringkasan tr.total td { font-weight: bold; font-size: 17px; border-bottom: none; }
+    .member { flex-direction: row; align-items: center; gap: 6px; font-size: 15px; }
+    .pesan { min-height: 20px; margin-top: 10px; font-size: 14px; }
+    .pesan.error { color: var(--merah); }
+    .pesan.sukses { color: var(--hijau); }
+    #hasil-bayar { font-size: 18px; font-weight: bold; margin-top: 8px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Kasir Kantin STEAM</h1>
+    <p>Aplikasi kasir sederhana untuk kantin sekolah</p>
+  </header>
+
+  <main>
+    <section>
+      <h2>Tambah Pesanan</h2>
+      <form id="form-tambah">
+        <label>Produk
+          <select id="produk"></select>
+        </label>
+        <label>Jumlah
+          <input id="qty" type="number" value="1">
+        </label>
+        <button type="submit">Tambah</button>
+      </form>
+      <div id="pesan" class="pesan"></div>
+    </section>
+
+    <section>
+      <h2>Keranjang</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Produk</th>
+            <th class="angka">Harga</th>
+            <th class="angka">Jumlah</th>
+            <th class="angka">Subtotal</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="isi-keranjang"></tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Pembayaran</h2>
+      <label class="member"><input id="member" type="checkbox"> Pelanggan member</label>
+      <table class="ringkasan">
+        <tr><td>Subtotal</td><td id="subtotal"></td></tr>
+        <tr><td>Diskon</td><td id="diskon"></td></tr>
+        <tr><td>PPN 11%</td><td id="ppn"></td></tr>
+        <tr class="total"><td>Total</td><td id="total"></td></tr>
+      </table>
+      <div class="baris-bayar">
+        <label>Uang dibayar (Rp)
+          <input id="bayar" type="number" min="0" step="500">
+        </label>
+        <button id="tombol-bayar" type="button">Bayar</button>
+        <button id="tombol-baru" type="button" class="sekunder">Transaksi Baru</button>
+      </div>
+      <div id="hasil-bayar"></div>
+    </section>
+  </main>
+
+  <script src="kasir.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
