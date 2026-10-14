@@ -49,3 +49,14 @@ test("Bug 4: bukan member dengan subtotal tepat Rp100.000 mendapat diskon 5%, Rp
   assert.strictEqual(kasir.hitungDiskon(100000, false), 5000);
   assert.strictEqual(kasir.hitungDiskon(99999, false), 0);
 });
+
+test("Bug 5: diskon tidak digabung, member hanya 10% dan bukan member 5%", () => {
+  assert.strictEqual(kasir.hitungDiskon(120000, true), 12000); // bukan 18000
+  assert.strictEqual(kasir.hitungDiskon(120000, false), 6000);
+  assert.strictEqual(kasir.hitungDiskon(50000, true), 5000);
+  assert.strictEqual(kasir.hitungDiskon(50000, false), 0);
+});
+
+test("Bug 5: diskon member dibulatkan ke rupiah terdekat, 100,5 menjadi 101", () => {
+  assert.strictEqual(kasir.hitungDiskon(1005, true), 101);
+});
