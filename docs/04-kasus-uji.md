@@ -59,7 +59,7 @@ Data uji (disimpan lebih dulu lewat formulir, dari localStorage yang kosong):
 | C08 | Unduh CSV tanpa saringan | Klik Unduh CSV | Baris nama kolom dan 4 baris data | Menampilkan baris nama dan 4 baris data | Ya | C08.png |
 | C09 | Unduh CSV mengikuti saringan | Lakukan C06, klik Unduh CSV | Baris nama kolom dan 1 baris data (S2) | Menampilkan baris data S2 | Ya | C09.png |
 | C10 | Format angka di CSV | Buka file CSV di Excel | Kolom terpisah, nilai `8750` (bukan `Rp8.750`), berat `2.5` | Menampilkan S2 | Ya | C10.png |
-| C11 | Kasus lama tidak rusak | Jalankan ulang U01 sampai U16 dan `node --test tes/logika.test.js` | Semua tetap lulus | Menampilkan data yang lulus | Ya | C11.png  |
+| C11 | Kasus lama tidak rusak | Jalankan ulang U01 sampai U16 dan `node --test tes/logika.test.js` | Semua tetap lulus | Menampilkan data yang lulus | Ya | Hasil node --test: 43 lulus dari 43 (lihat catatan pengujian ulang di bawah tabel) |
 
 
 Uji clone README pada komputer bersih (Windows, Node.js v24.18.0), 13 Okt 2026: clone berhasil, perintah node --test tes/logika.test.js menghasilkan 40 lulus dari 40. Perintah lama node --test tes/ gagal (MODULE_NOT_FOUND), sehingga README diperbaiki.
