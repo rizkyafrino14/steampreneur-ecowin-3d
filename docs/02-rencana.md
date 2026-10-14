@@ -22,4 +22,4 @@ Peran: Rizky Mustafa Afrino (navigator utama), Muhammad Fadil Ismunawar (penguji
 | 7 | Review dan pahami kode: code review AI, putuskan saran diterima atau ditolak, tulis penjelasan kode masing-masing anggota | Rofiqi (catatan review), semua anggota (penjelasan kode) | `06-catatan-review.md` terisi; tiap anggota punya minimal 2 penjelasan di `08-penjelasan-kode.md` | 60 menit | 60 menit | Selesai |
 | 8 | Bug Hunt | Semua anggota | Catatan bug dan test selesai | 60 menit | 3 menit | selesai |
 | 9 | Change request | Rizky (kode), Fadil (kasus uji), Rofiqi (analisis dan dokumen) | Semua kasus uji lama dan baru lulus | 90 menit | 75 menit | selesai |
-| 10 | Dokumentasi dan refleksi | Rofiqi (README), semua anggota (refleksi) | README bisa diikuti orang lain | 90 menit | 85 menit | selesai |
+| 10 | Dokumentasi dan refleksi | Rofiqi (README), semua anggota (refleksi) | README bisa diikuti orang lain | 60 menit | 85 menit | selesai |
